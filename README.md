@@ -1,9 +1,9 @@
 <div align="center"><img src="https://i.hypera.dev/assets/ultrastaffchat-logo.png" width="300" /></div>
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/HyperaOfficial/UltraStaffChat/maven.yml?color=%232155CC&style=for-the-badge)
-![GitHub Release Date](https://img.shields.io/github/release-date/HyperaOfficial/UltraStaffChat?color=%232155CC&label=Last%20Release&style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HyperaOfficial/UltraStaffChat?color=%232155CC&style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/HyperaOfficial/UltraStaffChat?color=%232155CC&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/HyperaOfficial/UltraStaffChat/maven.yml?color=%232155CC&&style=for-the-badge)
+![GitHub Release Date](https://img.shields.io/github/release-date/HyperaOfficial/UltraStaffChat?color=%232155CC&&label=Last%20Release&&style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HyperaOfficial/UltraStaffChat?color=%232155CC&&style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/HyperaOfficial/UltraStaffChat?color=%232155CC&&style=for-the-badge)
 
 ## Download
 Click [here](https://www.spigotmc.org/resources/68956/) to download UltraStaffChat Bungeecord.
