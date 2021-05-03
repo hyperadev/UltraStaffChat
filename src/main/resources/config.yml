@@ -1,0 +1,407 @@
+#     __  ______             _____ __        ________________          __
+#    / / / / / /__________ _/ ___// /_____ _/ __/ __/ ____/ /_  ____ _/ /_
+#   / / / / / __/ ___/ __ `/\__ \/ __/ __ `/ /_/ /_/ /   / __ \/ __ `/ __/
+#  / /_/ / / /_/ /  / /_/ /___/ / /_/ /_/ / __/ __/ /___/ / / / /_/ / /_
+#  \____/_/\__/_/   \__,_//____/\__/\__,_/_/ /_/  \____/_/ /_/\__,_/\__/
+#
+#   UltraStaffChat - config.yml - Main Configuration.
+#   Copyright (C) 2021 Joshua Sing <joshua@hypera.dev>, Christian F <christianfdev@gmail.com>, SLLCoding <luisjk266@gmail.com>
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#   Helpful Links:
+#    Support          |   https://discord.hypera.dev
+#    Documentation    |   https://docs.hypera.dev/docs/ultrastaffchat-bungeecord
+
+
+
+# [ UltraStaffChat | General Configuration ]
+
+# General | No Permission Message
+no-permission: "&cNo Permission."
+
+# General | In-game Only Message
+ingame-only: "&cThis command can only be used in-game."
+
+
+# [ UltraStaffChat | Discord Configuration ]
+
+# Discord | Enabled
+#  Should we send messages to Discord?
+discord-enabled: false
+
+# Discord | Webhook URL
+discord-webhook: "https://discord.com/api/webhooks/XXXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# Discord | Webhook Username
+#  What name do you want the webhook to use?
+discord-username: "UltraStaffChat"
+
+# Discord | Webhook Image
+#  What image do you want the webhook to use?
+discord-image: "https://cdn.discordapp.com/icons/639666139747581955/fa3ffcc73fd3a47054fc575736c812f6.png"
+
+# Discord | Embed
+#  Should we use embeds?
+discord-embed: true
+
+# Discord | StaffChat Format
+#  - Placeholders: Player - {player}, Server - {server}, Message - {message}
+discord-format:
+  text: "[StaffChat] {server} - **{player}**: {message}" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "**{player}**: {message}" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "{player}"
+    #    value: "{message}"
+    #    inline: true
+    #  2:
+    #    name: "Server"
+    #    value: "{server}"
+    #    inline: true
+    #  3:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+# Discord | Staff Join Messages
+#  Should Staff Join messages be sent to Discord?
+discord-join-messages: true
+
+# Discord | Join Format
+#  - Placeholders: Player - {player}, Server - {server}
+discord-join-format:
+  text: "**{player}** connected to **{server}**" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "{player}" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "** + {server} **" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+# Discord | Staff Leave Messages
+#  Should Staff Leave messages be sent to Discord?
+discord-leave-messages: true
+
+# Discord | Leave Format
+#  - Placeholders: Player - {player}, Server - {server}
+discord-leave-format:
+  text: "**{player}** disconnected from **{server}**" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "{player}" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "** - {server} **" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+# Discord | Staff Switch Messages
+#  Should Staff Switch messages be sent to Discord?
+discord-switch-messages: true
+
+# Discord | Switch Format
+#  - Placeholders: Player - {player}, From - {from}, To - {to}
+discord-switch-format:
+  text: "**{player}** switched from **{from}** -> **{to}**" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "{player}" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "** {from} -> {to} **" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+# Discord | AFK Messages
+#  Should Staff AFK enable messages be sent to Discord?
+discord-afk-enable-messages: true
+
+# Discord | AFK Enable Format
+#  - Placeholders: Player - {player}
+discord-afk-enable-format:
+  text: "**{player}** is now AFK" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "{player}" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "has gone AFK" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+# Discord | AFK Messages
+#  Should Staff AFK disable messages be sent to Discord?
+discord-afk-disable-messages: true
+
+# Discord | AFK Disable Format
+#  - Placeholders: Player - {player}
+discord-afk-disable-format:
+  text: "**{player}** is no longer AFK" # Only used if 'discord-embed' is disabled.
+  embed: # Only used if 'discord-embed' is enabled.
+    author: # Embed Author
+      name: ""
+      url: ""
+      image: ""
+    title: "{player}" # Embed Title
+    title-url: "" # Enbed Title URL
+    description: "is no longer AFK" # Embed Description
+    color: "#5555FF" # Embed Color
+    footer: # Upgrade to UltraStaffChatPro to change the embed Footer
+    image: "" # Embed Image URL
+    thumbnail: "" # Embed Thumbnail URL
+    fields: # Embed Fields (Remove all to have no fields)
+    #  1:
+    #    name: "Example"
+    #    value: "You can keep making more fields"
+    #    inline: false
+
+
+
+# [ UltraStaffChat | StaffChat Configuration ]
+
+# StaffChat | Format
+#  - Placeholders: Player - {player}, Server - {server}, Message - {message}
+staffchat-format: "&8[&4&lStaffChat&8] &4{player}&c: &c{message}"
+
+# StaffChat | Usage
+staffchat-usage: "&cUsage: /staffchat <message>"
+
+# StaffChat | Muted
+staffchat-muted: "&cStaffChat is currently Muted"
+
+# StaffChat | Prefix
+#  Allows Staff members to send messages to StaffChat using a prefix before their message.
+#  Set to "" to disable.
+staffchat-prefix: "#"
+
+
+
+# [ UltraStaffChat | Toggle Configuration ]
+
+# Toggle | Enabled
+toggle-enabled: true
+
+# Toggle | Message
+#  - Placeholders: &aOn/&cOff - {toggle}
+toggle-message: "&8[&4&lStaffChat&8] &cStaffChat Toggled {toggle}&c!"
+
+# Toggle | Usage
+toggle-usage: "&cUsage: /sctoggle <state>"
+
+
+# [ UltraStaffChat | Mute Configuration ]
+
+# Mute | Enabled
+mute-enabled: true
+
+# Mute | Message
+#  - Placeholders: &cMuted/&aUnmuted - {mute}
+mute-message: "&8[&4&lStaffChat&8] &cStaffChat {mute}&c!"
+
+# Mute | Usage
+mute-usage: "&cUsage: /scmute <state>"
+
+# [ UltraStaffChat | Mute StaffChat Configuration ]
+
+# Mute | Enabled
+mute-staffchat-enabled: true
+
+# Mute | Message
+#  - Placeholders: &cMuted/&aUnmuted - {mute}
+mute-staffchat-message: "&8[&4&lStaffChat&8] &cStaffChat has been {mute}&c!"
+
+# Mute | Usage
+mute-staffchat-usage: "&cUsage: /mutesc <state>"
+
+
+
+# [ UltraStaffChat | AFK Configuration ]
+
+# AFK | Enabled
+afk-enabled: true
+
+# AFK | Message
+afk-broadcast: "&7{player} is now &c&lAFK&7."
+
+# AFK | No longer AFK Message
+no-afk-broadcast: "&7{player} is no longer &c&lAFK&7."
+
+
+
+# [ UltraStaffChat | Join Message Configuration ]
+
+# Join Message | Enabled
+join-enabled: true
+
+# Join Message | Message
+#  - Placeholders: Player - {player}, Server - {server}
+join-message: "&7[&a&l+&7] &7[{server}] &a{player}"
+
+
+
+# [ UltraStaffChat | Leave Message Configuration ]
+
+# Leave Message | Enabled
+leave-enabled: true
+
+# Leave Message | Message
+#  - Placeholders: Player - {player}
+leave-message: "&7[&c&l-&7] &c{player}"
+
+
+
+# [ UltraStaffChat | Switch Message Configuration ]
+
+# Switch Message | Enabled
+switch-enabled: true
+
+# Switch Message | Message
+#  - Placeholders: Player - {player}, From - {from}, To - {to}
+switch-message: "&8[&4&lStaffChat&8] &c{player} switched from {from} to {to}"
+
+
+
+# [ UltraStaffChat | StaffList Configuration ]
+
+# StaffList | Enabled
+stafflist-enabled: true
+
+# StaffList | Header
+#  - Placeholders: Staff Count - {count}
+stafflist-header: "&7({count}) &c&lOnline Staff Members&7:"
+
+# StaffList | Format
+#  - Placeholders: Player - {player}, Server - {server}
+stafflist-line: "&4{player} &7- &4{server}"
+
+# StaffList | No staff online
+stafflist-offline: "&cNo staff members are online."
+
+
+
+# [ UltraStaffChat | Update Notification Configuration ]
+
+# Update Notification | Enabled
+update-enabed: true
+
+# Update Notification | Message
+#  - Placeholders: New Version - {version}, Current Version - {current}
+update-message: "&8[&c&lUltraStaffChat&8] &aVersion {version} is now available."
+
+
+
+# [ UltraStaffChat | Permissions ]
+
+# Permission | StaffChat Talk
+permission-talk: "staffchat.talk"
+
+# Permission | StaffChat Read
+permission-read: "staffchat.read"
+
+# Permission | Toggle
+permission-toggle: "staffchat.toggle"
+
+# Permission | Mute
+permission-mute: "staffchat.mute"
+
+# Permission | Mute Global
+permission-globalmute: "staffchat.globalmute"
+
+# Permission | StaffChat Global Mute Bypass
+permission-bypass: "staffchat.mutebypass"
+
+# Permission | AFK
+permission-afk: "staffchat.afk"
+
+# Permission | Staff Join
+permission-join: "staffchat.join"
+
+# Permission | Staff Leave
+permission-leave: "staffchat.leave"
+
+# Permission | Switch
+permission-switch: "staffchat.switch"
+
+# Permission | Staff List
+permission-list: "staffchat.list"
+
+# Permission | Staff (Permission needed to display on Staff List)
+permission-staff: "staffchat.staff"
+
+# Permission | Update Notification
+permission-update: "ultrastaffchat.update"
+
+# Permission | Configuration Reload
+permission-reload: "ultrastaffchat.reload"
+
+# Permission | Debug
+permission-debug: "ultrastaffchat.debug"
+
+
+
+# [ UltraStaffChat | System Configuration ]
+
+# System | Configuration Version
+#  Used for Internal purposes - Don't edit!
+version: 36

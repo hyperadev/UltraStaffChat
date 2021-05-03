@@ -1,0 +1,5 @@
+name: UltraStaffChat
+version: ${project.version}
+author: "Joshua S, Christian F, SLLCoding, Hunter Y"
+main: dev.hypera.ultrastaffchat.UltraStaffChat
+description: A 100% Customizable StaffChat Plugin for BungeeCord!
