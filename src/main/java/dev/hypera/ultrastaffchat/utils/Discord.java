@@ -46,6 +46,11 @@ public class Discord {
         enabled = true;
     }
 
+    public static void reload() {
+        enabled = false;
+        setup();
+    }
+
     public static boolean isEnabled() {
         return enabled;
     }

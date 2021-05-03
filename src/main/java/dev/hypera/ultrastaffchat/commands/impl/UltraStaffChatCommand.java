@@ -21,6 +21,7 @@ package dev.hypera.ultrastaffchat.commands.impl;
 import dev.hypera.ultrastaffchat.UltraStaffChat;
 import dev.hypera.ultrastaffchat.commands.Command;
 import dev.hypera.ultrastaffchat.utils.Common;
+import dev.hypera.ultrastaffchat.utils.Discord;
 import dev.hypera.ultrastaffchat.utils.PasteUtils;
 import dev.hypera.ultrastaffchat.utils.TimeUtils;
 import net.kyori.adventure.audience.Audience;
@@ -75,6 +76,7 @@ public class UltraStaffChatCommand extends Command {
                         )
                 );
                 UltraStaffChat.getConfig().reload();
+                Discord.reload();
                 audience.sendMessage(Component.text()
                         .append(
                                 Component.text().content("[").color(NamedTextColor.GRAY),
