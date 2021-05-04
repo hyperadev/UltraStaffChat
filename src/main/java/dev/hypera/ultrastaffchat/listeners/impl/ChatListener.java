@@ -52,7 +52,7 @@ public class ChatListener extends Listener {
 
 		if(p.hasPermission(UltraStaffChat.getConfig().getString("permission-talk"))) {
 			String prefix = UltraStaffChat.getConfig().getString("staffchat-prefix");
-			if(prefix != "" && e.getMessage().startsWith(prefix)) {
+			if(!prefix.equals("") && e.getMessage().startsWith(prefix)) {
 				e.setCancelled(true);
 				if(StaffChat.staffChatIsMuted()) {
 					if(!((ProxiedPlayer) e.getSender()).hasPermission(UltraStaffChat.getConfig().getString("permission-bypass"))) {
