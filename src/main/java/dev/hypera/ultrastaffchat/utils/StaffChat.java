@@ -30,7 +30,11 @@ public class StaffChat {
     private static boolean staffChatMuted = false;
 
     public static void disableMessages(ProxiedPlayer p) {
-        if (!mutedPlayers.containsKey(p.getUniqueId())) { mutedPlayers.put(p.getUniqueId(), true); return; }; if (mutedPlayers.get(p.getUniqueId()).equals(false)) mutedPlayers.replace(p.getUniqueId(), false, true);
+        if (!mutedPlayers.containsKey(p.getUniqueId())) {
+            mutedPlayers.put(p.getUniqueId(), true);
+            return;
+        }
+        if (mutedPlayers.get(p.getUniqueId()).equals(false)) mutedPlayers.replace(p.getUniqueId(), false, true);
     }
 
     public static void enableMessages(ProxiedPlayer p) {
@@ -38,7 +42,11 @@ public class StaffChat {
     }
 
     public static boolean toggleMessages(ProxiedPlayer p) {
-        if (hasMessagesDisabled(p)) { enableMessages(p); } else disableMessages(p);
+        if (hasMessagesDisabled(p)) {
+            enableMessages(p);
+        } else {
+            disableMessages(p);
+        }
         return hasMessagesDisabled(p);
     }
 
@@ -84,7 +92,11 @@ public class StaffChat {
     }
 
     public static void disableChatStaffChat(ProxiedPlayer p) {
-        if (!toggledPlayers.containsKey(p.getUniqueId())) { toggledPlayers.put(p.getUniqueId(), false); return; }; if (toggledPlayers.get(p.getUniqueId()).equals(true)) toggledPlayers.replace(p.getUniqueId(), true, false);
+        if (!toggledPlayers.containsKey(p.getUniqueId())) {
+            toggledPlayers.put(p.getUniqueId(), false);
+            return;
+        }
+        if (toggledPlayers.get(p.getUniqueId()).equals(true)) toggledPlayers.replace(p.getUniqueId(), true, false);
     }
 
     public static boolean hasChatStaffChatEnabled(ProxiedPlayer p) {

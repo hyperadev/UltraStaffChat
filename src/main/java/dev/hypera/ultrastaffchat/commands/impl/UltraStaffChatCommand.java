@@ -52,111 +52,80 @@ public class UltraStaffChatCommand extends Command {
         Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
 
         if(args.length > 0) {
-            if (args[0].matches("(?i:(ab(t|out)|credit(s)?|contibutor(s)?))")) {
-                audience.sendMessage(Component.text()
-                        .append(
-                                Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD).clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/" + Common.getResourceId() + "/")),
-                                Component.text().content(" Version ").color(NamedTextColor.GRAY).build(),
-                                Component.text().content(UltraStaffChat.getInstance().getDescription().getVersion()).color(NamedTextColor.RED).build(),
-                                Component.text().content(" was created by:\n").color(NamedTextColor.GRAY).build(),
-                                LegacyComponentSerializer.legacyAmpersand().deserialize("&7 - &c" + String.join("\n &7- &c", Common.getContributors()))
-                        )
-                );
+            if(args[0].matches("(?i:(ab(t|out)|credit(s)?|contibutor(s)?))")) {
+                audience.sendMessage(Component.text().append(Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD).clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/" + Common.getResourceId() + "/")), Component.text().content(" Version ").color(NamedTextColor.GRAY).build(), Component.text().content(UltraStaffChat.getInstance().getDescription().getVersion()).color(NamedTextColor.RED).build(), Component.text().content(" was created by:\n").color(NamedTextColor.GRAY).build(), LegacyComponentSerializer.legacyAmpersand().deserialize("&7 - &c" + String.join("\n &7- &c", Common.getContributors()))));
                 return;
             }
 
-            if (args[0].matches("(?i:(r(eload)?))")) {
-                if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-reload"))) {audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission"))); return;}
-                audience.sendMessage(Component.text()
-                        .append(
-                                Component.text().content("[").color(NamedTextColor.GRAY),
-                                Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                                Component.text().content("] ").color(NamedTextColor.GRAY),
-                                Component.text().content("Reloading configuration files...").color(NamedTextColor.GREEN)
-                        )
-                );
+            if(args[0].matches("(?i:(r(eload)?))")) {
+                if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-reload"))) {
+                    audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
+                    return;
+                }
+
+                audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Reloading configuration files...").color(NamedTextColor.GREEN)));
+
                 UltraStaffChat.getConfig().reload();
                 Discord.reload();
-                audience.sendMessage(Component.text()
-                        .append(
-                                Component.text().content("[").color(NamedTextColor.GRAY),
-                                Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                                Component.text().content("] ").color(NamedTextColor.GRAY),
-                                Component.text().content("Successfully reloaded configuration files").color(NamedTextColor.GREEN)
-                        )
-                );
+
+                audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Successfully reloaded configuration files").color(NamedTextColor.GREEN)));
                 return;
             }
 
-            if (args[0].matches("(?i:(debug))")) {
-                if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-debug"))) {audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission"))); return;}
+            if(args[0].matches("(?i:(debug))")) {
+                if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-debug"))) {
+                    audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
+                    return;
+                }
+
                 String log;
-                String filename = "USC-" + TimeUtils.formatFileDateTime(Date.from(Instant.now())) + "-Debug.txt";;
+                String filename = "USC-" + TimeUtils.formatFileDateTime(Date.from(Instant.now())) + "-Debug.txt";
+
                 boolean advanced = false;
-                if (args.length > 1) {
-                    for (String arg : args) {
-                        if (arg.matches("(?i:(--a(dv(anced)?)?))")) {
+                if(args.length > 1) {
+                    for(String arg : args) {
+                        if(arg.matches("(?i:(--a(dv(anced)?)?))")) {
                             advanced = true;
                             break;
                         }
                     }
                 }
 
-                if (advanced) {
-                    audience.sendMessage(Component.text().append(
-                            Component.text().content("[").color(NamedTextColor.GRAY),
-                            Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                            Component.text().content("] ").color(NamedTextColor.GRAY),
-                            Component.text().content("Generating advanced debug log...").color(NamedTextColor.WHITE)
-                    ));
+                if(advanced) {
+                    audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Generating advanced debug log...").color(NamedTextColor.WHITE)));
                     log = generateAdvancedDebugLog();
                 } else {
-                    audience.sendMessage(Component.text().append(
-                            Component.text().content("[").color(NamedTextColor.GRAY),
-                            Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                            Component.text().content("] ").color(NamedTextColor.GRAY),
-                            Component.text().content("Generating debug log...").color(NamedTextColor.WHITE)
-                    ));
+                    audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Generating debug log...").color(NamedTextColor.WHITE)));
                     log = generateDebugLog();
                 }
 
                 try {
                     File logFolder = new File(UltraStaffChat.getInstance().getDataFolder() + "/logs");
-                    if (!logFolder.exists()) logFolder.mkdirs();
+                    if(!logFolder.exists())
+                        logFolder.mkdirs();
 
                     File logFile = new File(logFolder + "/" + filename);
-                    if (logFile.createNewFile()) {
+                    if(logFile.createNewFile()) {
                         FileWriter logWriter = new FileWriter(logFile);
                         logWriter.write(log);
                         logWriter.close();
-                    } else throw new Exception();
+                    } else {
+                        throw new Exception();
+                    }
 
                     String pasteURL = PasteUtils.createPaste(log);
-                    if (pasteURL == null) throw new Exception();
-                    if (advanced) {
-                        audience.sendMessage(Component.text().append(
-                                Component.text().content("[").color(NamedTextColor.GRAY),
-                                Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                                Component.text().content("] ").color(NamedTextColor.GRAY),
-                                Component.text().content("Successfully generated debug log ").color(NamedTextColor.GREEN),
-                                Component.text().content("[View]").color(NamedTextColor.GRAY).clickEvent(ClickEvent.openUrl(pasteURL)).hoverEvent(HoverEvent.showText(Component.text().content(pasteURL)))
-                        ));
+                    if(pasteURL == null)
+                        throw new Exception();
+                    if(advanced) {
+                        audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Successfully generated debug log ").color(NamedTextColor.GREEN), Component.text().content("[View]").color(NamedTextColor.GRAY).clickEvent(ClickEvent.openUrl(pasteURL)).hoverEvent(HoverEvent.showText(Component.text().content(pasteURL)))));
                     } else {
-                        audience.sendMessage(Component.text().append(
-                                LegacyComponentSerializer.legacy('&').deserialize(log).clickEvent(ClickEvent.openUrl(pasteURL))
-                        ));
+                        audience.sendMessage(Component.text().append(LegacyComponentSerializer.legacy('&').deserialize(log).clickEvent(ClickEvent.openUrl(pasteURL))));
                     }
                 } catch (Exception e) {
                     Common.logPrefix("Failed to generate debug log!");
-                    audience.sendMessage(Component.text().append(
-                            Component.text().content("[").color(NamedTextColor.GRAY),
-                            Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD),
-                            Component.text().content("] ").color(NamedTextColor.GRAY),
-                            Component.text().content("Failed to generate debug log").color(NamedTextColor.RED)
-                    ));
+                    audience.sendMessage(Component.text().append(Component.text().content("[").color(NamedTextColor.GRAY), Component.text().content("UltraStaffChat").color(NamedTextColor.RED).decorate(TextDecoration.BOLD), Component.text().content("] ").color(NamedTextColor.GRAY), Component.text().content("Failed to generate debug log").color(NamedTextColor.RED)));
                     return;
                 }
-                return;
             }
         }
 

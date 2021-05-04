@@ -50,7 +50,11 @@ public class StaffChatManager {
 		if (staffToggleAFKEvent.isCancelled()) return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-afk"));
 		audience.sendMessage(adventurise((afk ? messageRaw("afk-broadcast") : messageRaw("no-afk-broadcast")).replace("{player}", player.getName())));
-		if (afk) {Discord.broadcastDiscordAFKEnable(player);} else Discord.broadcastDiscordAFKDisable(player);
+		if (afk) {
+			Discord.broadcastDiscordAFKEnable(player);
+		} else {
+			Discord.broadcastDiscordAFKDisable(player);
+		}
 	}
 
 	public static void broadcastJoin(ProxiedPlayer player) {
