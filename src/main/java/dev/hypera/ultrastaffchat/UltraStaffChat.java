@@ -20,12 +20,11 @@ package dev.hypera.ultrastaffchat;
 
 import dev.hypera.ultrastaffchat.commands.CommandManager;
 import dev.hypera.ultrastaffchat.config.Config;
+import dev.hypera.ultrastaffchat.listeners.ListenerManager;
 import dev.hypera.ultrastaffchat.objects.ErrorCode;
 import dev.hypera.ultrastaffchat.utils.Common;
 import dev.hypera.ultrastaffchat.utils.Debug;
-import dev.hypera.ultrastaffchat.listeners.ListenerManager;
 import dev.hypera.ultrastaffchat.utils.Discord;
-
 import dev.hypera.updatelib.UpdateLibBuilder;
 import dev.hypera.updatelib.internal.UpdateLib;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
@@ -77,14 +76,7 @@ public final class UltraStaffChat extends Plugin {
 
 			Debug.finishStart();
 
-			Common.log(
-					"&r &r &r",
-					"&c  __  ___________",
-					"&c / / / / __/ ___/ &r &c&lUltraStaffChat&r &8BungeeCord",
-					"&c/ /_/ /\\ \\/ /__&c &r &c &r &8Running Version &c" + getDescription().getVersion(),
-					"&c\\____/___/\\___/",
-					"&r &r &r"
-			);
+			Common.log("&r &r &r", "&c  __  ___________", "&c / / / / __/ ___/ &r &c&lUltraStaffChat&r &8BungeeCord", "&c/ /_/ /\\ \\/ /__&c &r &c &r &8Running Version &c" + getDescription().getVersion(), "&c\\____/___/\\___/", "&r &r &r");
 			Common.logPrefix("&aSuccessfully started. &8Took " + Debug.getStartLength() + "ms");
 		} catch (Exception ex) {
 			Common.error(ErrorCode.UNKNOWN, "Error while starting.", ex);
@@ -123,4 +115,5 @@ public final class UltraStaffChat extends Plugin {
 			throw new IllegalStateException("Cannot retrieve UpdateLib while the plugin is not enabled");
 		return updateLib;
 	}
+
 }

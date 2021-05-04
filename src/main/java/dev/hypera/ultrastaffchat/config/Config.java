@@ -72,27 +72,32 @@ public class Config {
 	}
 
 	public String getString(String path) {
-		if(null == configuration) return null;
+		if(null == configuration)
+			return null;
 		return configuration.getString(path);
 	}
 
 	public Boolean getBoolean(String path) {
-		if(null == configuration) return null;
+		if(null == configuration)
+			return null;
 		return configuration.getBoolean(path);
 	}
 
 	public Integer getInteger(String path) {
-		if(null == configuration) return null;
+		if(null == configuration)
+			return null;
 		return configuration.getInt(path);
 	}
 
 	public List<String> getStringList(String path) {
-		if(null == configuration) return null;
+		if(null == configuration)
+			return null;
 		return configuration.getStringList(path);
 	}
 
 	public int getVersion() {
-		if(null == configuration) return -1;
+		if(null == configuration)
+			return -1;
 		return configuration.getInt("version");
 	}
 
@@ -107,5 +112,5 @@ public class Config {
 	public File getConfigurationFile() {
 		return configurationFile;
 	}
-	
+
 }

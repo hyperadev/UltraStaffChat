@@ -27,14 +27,15 @@ import net.md_5.bungee.event.EventHandler;
 
 public class SwitchListener extends Listener {
 
-    @EventHandler
-    public void onServerSwitch(ServerSwitchEvent event) {
-        if (Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) {
-            try {
-                StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom().getName(), event.getPlayer().getServer().getInfo().getName());
-            } catch (Exception e) {
-                // Ignore exception, its just a null pointer because the user joined not switched
-            }
-        }
-    }
+	@EventHandler
+	public void onServerSwitch(ServerSwitchEvent event) {
+		if(Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) {
+			try {
+				StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom().getName(), event.getPlayer().getServer().getInfo().getName());
+			} catch (Exception e) {
+				// Ignore exception, its just a null pointer because the user joined not switched
+			}
+		}
+	}
+
 }

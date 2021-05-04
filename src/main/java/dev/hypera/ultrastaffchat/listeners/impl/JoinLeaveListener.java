@@ -31,26 +31,26 @@ import java.util.concurrent.TimeUnit;
 
 public class JoinLeaveListener extends Listener {
 
-    @EventHandler
-    public void onPostJoin(PostLoginEvent event) {
-        if (Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-join"))) {
-            // We have to delay the broadcast so we can display the server they joined.
-            ProxyServer.getInstance().getScheduler().schedule(UltraStaffChat.getInstance(), () -> StaffChatManager.broadcastJoin(event.getPlayer()), 3, TimeUnit.SECONDS);
-        }
+	@EventHandler
+	public void onPostJoin(PostLoginEvent event) {
+		if(Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-join"))) {
+			// We have to delay the broadcast so we can display the server they joined.
+			ProxyServer.getInstance().getScheduler().schedule(UltraStaffChat.getInstance(), () -> StaffChatManager.broadcastJoin(event.getPlayer()), 3, TimeUnit.SECONDS);
+		}
 
-        if(UltraStaffChat.getConfig().getBoolean("update-enabled") && Common.hasPermission(event.getPlayer(), Common.messageRaw("permission-update"))) {
-            if(null != UltraStaffChat.getInstance().getUpdateLib().getLastResponse() && UltraStaffChat.getInstance().getUpdateLib().getLastResponse().isUpdateAvailable()) {
-                UltraStaffChat.getInstance().getAdventure().player(event.getPlayer()).sendMessage(Common.adventurise(Common.messageRaw("update-message").replace("{version}", UltraStaffChat.getInstance().getUpdateLib().getLastResponse().getSpigotVersion()).replace("{current}", UltraStaffChat.getInstance().getDescription().getVersion())));
-            }
-        }
+		if(UltraStaffChat.getConfig().getBoolean("update-enabled") && Common.hasPermission(event.getPlayer(), Common.messageRaw("permission-update"))) {
+			if(null != UltraStaffChat.getInstance().getUpdateLib().getLastResponse() && UltraStaffChat.getInstance().getUpdateLib().getLastResponse().isUpdateAvailable()) {
+				UltraStaffChat.getInstance().getAdventure().player(event.getPlayer()).sendMessage(Common.adventurise(Common.messageRaw("update-message").replace("{version}", UltraStaffChat.getInstance().getUpdateLib().getLastResponse().getSpigotVersion()).replace("{current}", UltraStaffChat.getInstance().getDescription().getVersion())));
+			}
+		}
 
-    }
+	}
 
-    @EventHandler
-    public void onDisconnect(PlayerDisconnectEvent event) {
-        if (Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-leave"))) {
-            StaffChatManager.broadcastLeave(event.getPlayer());
-        }
-    }
+	@EventHandler
+	public void onDisconnect(PlayerDisconnectEvent event) {
+		if(Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-leave"))) {
+			StaffChatManager.broadcastLeave(event.getPlayer());
+		}
+	}
 
 }

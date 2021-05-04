@@ -24,41 +24,41 @@ import net.md_5.bungee.api.plugin.Event;
 
 public class StaffChatEvent extends Event implements Cancellable {
 
-    private final CommandSender sender;
-    private final CommandSender receiver;
-    private String message;
-    private boolean cancelled = false;
+	private final CommandSender sender;
+	private final CommandSender receiver;
+	private String message;
+	private boolean cancelled = false;
 
-    public StaffChatEvent(CommandSender sender, CommandSender receiver, String message) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.message = message;
-    }
+	public StaffChatEvent(CommandSender sender, CommandSender receiver, String message) {
+		this.sender = sender;
+		this.receiver = receiver;
+		this.message = message;
+	}
 
-    public CommandSender getSender() {
-        return sender;
-    }
+	public CommandSender getSender() {
+		return sender;
+	}
 
-    public CommandSender getReceiver() {
-        return receiver;
-    }
+	public CommandSender getReceiver() {
+		return receiver;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancelled = cancel;
+	}
 
 }

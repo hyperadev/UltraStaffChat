@@ -32,47 +32,48 @@ import java.net.URL;
 
 public class PasteUtils {
 
-    private static final String PASTE_BASE = "https://paste.hypera.dev/";
+	private static final String PASTE_BASE = "https://paste.hypera.dev/";
 
 
-    /**
-     * Create a new paste.
-     * It is recommended to run this async to avoid slowing down the main thread.
-     *
-     * @param content Paste content.
-     * @return Paste Url.
-     * @throws Exception Anything that goes wrong while creating the paste.
-     */
-    public static String createPaste(String... content) throws Exception {
-        URL url = new URL(PASTE_BASE + "/documents");
-        HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-        httpsURLConnection.setRequestMethod("POST");
-        httpsURLConnection.setRequestProperty("User-Agent", "UltraStaffChat v" + UltraStaffChat.getInstance().getDescription().getVersion() + " Paste Generator");
-        httpsURLConnection.setRequestProperty("Content-Type", "text/plain");
-        httpsURLConnection.setDoOutput(true);
+	/**
+	 * Create a new paste. It is recommended to run this async to avoid slowing down the main thread.
+	 *
+	 * @param content Paste content.
+	 *
+	 * @return Paste Url.
+	 * @throws Exception Anything that goes wrong while creating the paste.
+	 */
+	public static String createPaste(String... content) throws Exception {
+		URL url = new URL(PASTE_BASE + "/documents");
+		HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+		httpsURLConnection.setRequestMethod("POST");
+		httpsURLConnection.setRequestProperty("User-Agent", "UltraStaffChat v" + UltraStaffChat.getInstance().getDescription().getVersion() + " Paste Generator");
+		httpsURLConnection.setRequestProperty("Content-Type", "text/plain");
+		httpsURLConnection.setDoOutput(true);
 
-        OutputStream outputStream = httpsURLConnection.getOutputStream();
-        outputStream.write(String.join("\n", content).getBytes());
-        outputStream.flush();
-        outputStream.close();
+		OutputStream outputStream = httpsURLConnection.getOutputStream();
+		outputStream.write(String.join("\n", content).getBytes());
+		outputStream.flush();
+		outputStream.close();
 
-        if(httpsURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            InputStreamReader inputStreamReader = new InputStreamReader(httpsURLConnection.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		if(httpsURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			InputStreamReader inputStreamReader = new InputStreamReader(httpsURLConnection.getInputStream());
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-            JsonElement jsonElement = new JsonParser().parse(bufferedReader);
-            JsonObject object = jsonElement.getAsJsonObject();
-            if(!object.has("key")) throw new IllegalStateException("Server did not response with a paste key");
+			JsonElement jsonElement = new JsonParser().parse(bufferedReader);
+			JsonObject object = jsonElement.getAsJsonObject();
+			if(!object.has("key"))
+				throw new IllegalStateException("Server did not response with a paste key");
 
-            String pasteUrl = PASTE_BASE + object.get("key").getAsString() + ".txt";
+			String pasteUrl = PASTE_BASE + object.get("key").getAsString() + ".txt";
 
-            inputStreamReader.close();
-            bufferedReader.close();
+			inputStreamReader.close();
+			bufferedReader.close();
 
-            return pasteUrl;
-        }
+			return pasteUrl;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 }

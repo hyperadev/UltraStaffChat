@@ -23,24 +23,25 @@ import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Cancellable;
 
 /**
- * Called when a player with the permission `staffchat.leave` leaves the proxy. When cancelled, the staff leave message is not shown.
+ * Called when a player with the permission `staffchat.leave` leaves the proxy. When cancelled, the staff leave message
+ * is not shown.
  */
 public class StaffLeaveEvent extends PlayerDisconnectEvent implements Cancellable {
 
-    private boolean cancelled = false;
+	private boolean cancelled = false;
 
-    public StaffLeaveEvent(ProxiedPlayer player) {
-        super(player);
-    }
+	public StaffLeaveEvent(ProxiedPlayer player) {
+		super(player);
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancelled = cancel;
+	}
 
 }

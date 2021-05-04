@@ -24,17 +24,19 @@ import java.util.TimeZone;
 
 public class TimeUtils {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
 
-    public static String formatDateTime(Date date) {
-        if(!dateFormat.getTimeZone().getID().equalsIgnoreCase("UTC")) dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return dateFormat.format(date);
-    }
+	public static String formatDateTime(Date date) {
+		if(!dateFormat.getTimeZone().getID().equalsIgnoreCase("UTC"))
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return dateFormat.format(date);
+	}
 
-    public static String formatFileDateTime(Date date) {
-        if(!fileDateFormat.getTimeZone().getID().equalsIgnoreCase("UTC")) fileDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return fileDateFormat.format(date);
-    }
+	public static String formatFileDateTime(Date date) {
+		if(!fileDateFormat.getTimeZone().getID().equalsIgnoreCase("UTC"))
+			fileDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return fileDateFormat.format(date);
+	}
 
 }

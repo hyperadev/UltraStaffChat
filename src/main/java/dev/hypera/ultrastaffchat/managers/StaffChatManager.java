@@ -19,7 +19,11 @@
 package dev.hypera.ultrastaffchat.managers;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
-import dev.hypera.ultrastaffchat.events.staff.*;
+import dev.hypera.ultrastaffchat.events.staff.StaffChatEvent;
+import dev.hypera.ultrastaffchat.events.staff.StaffJoinEvent;
+import dev.hypera.ultrastaffchat.events.staff.StaffLeaveEvent;
+import dev.hypera.ultrastaffchat.events.staff.StaffSwitchServerEvent;
+import dev.hypera.ultrastaffchat.events.staff.StaffToggleAFKEvent;
 import dev.hypera.ultrastaffchat.utils.Discord;
 import dev.hypera.ultrastaffchat.utils.StaffChat;
 import net.kyori.adventure.audience.Audience;
@@ -34,8 +38,10 @@ public class StaffChatManager {
 
 	public static void broadcastMessage(CommandSender sender, String message) {
 		UltraStaffChat.getInstance().getAdventure().filter(person -> {
-			if (!person.hasPermission(messageRaw("permission-read"))) return false;
-			if (person instanceof ProxiedPlayer && StaffChat.hasMessagesDisabled((ProxiedPlayer) person)) return false;
+			if(!person.hasPermission(messageRaw("permission-read")))
+				return false;
+			if(person instanceof ProxiedPlayer && StaffChat.hasMessagesDisabled((ProxiedPlayer) person))
+				return false;
 			StaffChatEvent staffChatEvent = new StaffChatEvent(sender, person, message);
 			ProxyServer.getInstance().getPluginManager().callEvent(staffChatEvent);
 			return !staffChatEvent.isCancelled();
@@ -44,13 +50,15 @@ public class StaffChatManager {
 	}
 
 	public static void broadcastAFK(ProxiedPlayer player, boolean afk) {
-		if(!UltraStaffChat.getConfig().getBoolean("afk-enabled")) return;
+		if(!UltraStaffChat.getConfig().getBoolean("afk-enabled"))
+			return;
 		StaffToggleAFKEvent staffToggleAFKEvent = new StaffToggleAFKEvent(player, afk);
 		ProxyServer.getInstance().getPluginManager().callEvent(staffToggleAFKEvent);
-		if (staffToggleAFKEvent.isCancelled()) return;
+		if(staffToggleAFKEvent.isCancelled())
+			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-afk"));
 		audience.sendMessage(adventurise((afk ? messageRaw("afk-broadcast") : messageRaw("no-afk-broadcast")).replace("{player}", player.getName())));
-		if (afk) {
+		if(afk) {
 			Discord.broadcastDiscordAFKEnable(player);
 		} else {
 			Discord.broadcastDiscordAFKDisable(player);
@@ -58,30 +66,36 @@ public class StaffChatManager {
 	}
 
 	public static void broadcastJoin(ProxiedPlayer player) {
-		if(!UltraStaffChat.getConfig().getBoolean("join-enabled")) return;
+		if(!UltraStaffChat.getConfig().getBoolean("join-enabled"))
+			return;
 		StaffJoinEvent staffJoinEvent = new StaffJoinEvent(player);
 		ProxyServer.getInstance().getPluginManager().callEvent(staffJoinEvent);
-		if (staffJoinEvent.isCancelled()) return;
+		if(staffJoinEvent.isCancelled())
+			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-join"));
 		audience.sendMessage(adventurise(messageRaw("join-message").replace("{player}", player.getName()).replace("{server}", getServerSafe(player))));
 		Discord.broadcastDiscordJoin(player);
 	}
 
 	public static void broadcastLeave(ProxiedPlayer player) {
-		if(!UltraStaffChat.getConfig().getBoolean("leave-enabled")) return;
+		if(!UltraStaffChat.getConfig().getBoolean("leave-enabled"))
+			return;
 		StaffLeaveEvent staffLeaveEvent = new StaffLeaveEvent(player);
 		ProxyServer.getInstance().getPluginManager().callEvent(staffLeaveEvent);
-		if (staffLeaveEvent.isCancelled()) return;
+		if(staffLeaveEvent.isCancelled())
+			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-leave"));
 		audience.sendMessage(adventurise(messageRaw("leave-message").replace("{player}", player.getName())));
 		Discord.broadcastDiscordLeave(player);
 	}
 
 	public static void broadcastSwitch(ProxiedPlayer player, String from, String to) {
-		if(!UltraStaffChat.getConfig().getBoolean("switch-enabled")) return;
+		if(!UltraStaffChat.getConfig().getBoolean("switch-enabled"))
+			return;
 		StaffSwitchServerEvent staffSwitchServerEvent = new StaffSwitchServerEvent(player, from, to);
 		ProxyServer.getInstance().getPluginManager().callEvent(staffSwitchServerEvent);
-		if (staffSwitchServerEvent.isCancelled()) return;
+		if(staffSwitchServerEvent.isCancelled())
+			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-switch"));
 		Discord.broadcastDiscordSwitch(player, from, to);
 		audience.sendMessage(adventurise(messageRaw("switch-message").replace("{player}", player.getName()).replace("{from}", from).replace("{to}", to)));
