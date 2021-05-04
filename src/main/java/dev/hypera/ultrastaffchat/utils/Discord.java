@@ -25,7 +25,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.config.Configuration;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 
 public class Discord {
@@ -40,6 +40,27 @@ public class Discord {
 			return;
 		if(UltraStaffChat.getConfig().getString("discord-webhook") == null || UltraStaffChat.getConfig().getString("discord-webhook").contains("XXXXXXXXXXXXXXXXXX")) {
 			Common.logPrefix("&cError: Discord messages are enabled but the webhook URL has not been configured!");
+			return;
+		}
+
+		Configuration config = UltraStaffChat.getConfig().getConfiguration();
+		if (config.getSection("discord-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+			return;
+		} else if (config.getSection("discord-join-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+			return;
+		} else if (config.getSection("discord-leave-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+			return;
+		} else if (config.getSection("discord-switch-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+			return;
+		} else if (config.getSection("discord-afk-enable-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+			return;
+		} else if (config.getSection("discord-afk-disable-format.embed.fields").getKeys().size() > 25) {
+			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
 			return;
 		}
 
