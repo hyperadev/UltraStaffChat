@@ -282,9 +282,11 @@ mute-staffchat-usage: "&cUsage: /mutesc <state>"
 afk-enabled: true
 
 # AFK | Message
+#  - Placeholders: Player - {player}
 afk-broadcast: "&7{player} is now &c&lAFK&7."
 
 # AFK | No longer AFK Message
+#  - Placeholders: Player - {player}
 no-afk-broadcast: "&7{player} is no longer &c&lAFK&7."
 
 
