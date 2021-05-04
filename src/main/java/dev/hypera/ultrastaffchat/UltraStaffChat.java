@@ -76,7 +76,14 @@ public final class UltraStaffChat extends Plugin {
 
 			Debug.finishStart();
 
-			Common.log("&r &r &r", "&c  __  ___________", "&c / / / / __/ ___/ &r &c&lUltraStaffChat&r &8BungeeCord", "&c/ /_/ /\\ \\/ /__&c &r &c &r &8Running Version &c" + getDescription().getVersion(), "&c\\____/___/\\___/", "&r &r &r");
+			Common.log(
+					"&r &r &r",
+					"&c  __  ___________",
+					"&c / / / / __/ ___/ &r &c&lUltraStaffChat&r &8BungeeCord",
+					"&c/ /_/ /\\ \\/ /__&c &r &c &r &8Running Version &c" + getDescription().getVersion(),
+					"&c\\____/___/\\___/",
+					"&r &r &r"
+			);
 			Common.logPrefix("&aSuccessfully started. &8Took " + Debug.getStartLength() + "ms");
 		} catch (Exception ex) {
 			Common.error(ErrorCode.UNKNOWN, "Error while starting.", ex);
