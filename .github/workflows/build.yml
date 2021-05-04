@@ -23,5 +23,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: target/*.jar
+          path: target/UltraStaffChat-*.jar
           retention-days: 7
