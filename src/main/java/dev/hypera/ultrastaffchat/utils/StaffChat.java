@@ -78,16 +78,14 @@ public class StaffChat {
 	}
 
 	public static boolean toggleChatStaffChat(ProxiedPlayer p) {
-		if(!toggledPlayers.containsKey(p.getUniqueId()) || toggledPlayers.get(p.getUniqueId()).equals(false)) {
-			if(!toggledPlayers.containsKey(p.getUniqueId()))
-				toggledPlayers.put(p.getUniqueId(), true);
-			if(toggledPlayers.get(p.getUniqueId()).equals(false))
-				toggledPlayers.replace(p.getUniqueId(), false, true);
+		if (!toggledPlayers.containsKey(p.getUniqueId())) {
+			toggledPlayers.put(p.getUniqueId(), true);
 			return true;
+		} else {
+			boolean oldToggled = toggledPlayers.get(p.getUniqueId());
+			toggledPlayers.replace(p.getUniqueId(), !oldToggled);
+			return !oldToggled;
 		}
-
-		toggledPlayers.replace(p.getUniqueId(), true, false);
-		return false;
 	}
 
 	public static void enableChatStaffChat(ProxiedPlayer p) {
