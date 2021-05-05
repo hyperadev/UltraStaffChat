@@ -24,31 +24,31 @@ import net.md_5.bungee.api.plugin.Event;
 
 public class StaffToggleAFKEvent extends Event implements Cancellable {
 
-    private final ProxiedPlayer player;
-    private final boolean afk;
-    private boolean cancelled = false;
+	private final ProxiedPlayer player;
+	private final boolean afk;
+	private boolean cancelled = false;
 
-    public StaffToggleAFKEvent(ProxiedPlayer player, boolean afk) {
-        this.player = player;
-        this.afk = afk;
-    }
+	public StaffToggleAFKEvent(ProxiedPlayer player, boolean afk) {
+		this.player = player;
+		this.afk = afk;
+	}
 
-    public ProxiedPlayer getPlayer() {
-        return player;
-    }
+	public ProxiedPlayer getPlayer() {
+		return player;
+	}
 
-    public boolean isAfk() {
-        return afk;
-    }
+	public boolean isAfk() {
+		return afk;
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancelled = cancel;
+	}
 
 }

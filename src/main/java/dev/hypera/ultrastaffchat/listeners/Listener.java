@@ -20,8 +20,8 @@ package dev.hypera.ultrastaffchat.listeners;
 
 public class Listener implements net.md_5.bungee.api.plugin.Listener {
 
-    public Listener() {
+	public Listener() {
 
-    }
+	}
 
 }

@@ -29,22 +29,22 @@ import java.util.Set;
 
 public class CommandManager {
 
-    public static void setup() {
-        Reflections reflections = new Reflections("dev.hypera.ultrastaffchat.commands.impl");
+	public static void setup() {
+		Reflections reflections = new Reflections("dev.hypera.ultrastaffchat.commands.impl");
 
-        Set<Class<? extends Command>> allCommands =
-                reflections.getSubTypesOf(Command.class);
+		Set<Class<? extends Command>> allCommands = reflections.getSubTypesOf(Command.class);
 
-        for (Class<? extends Command> commandClass : allCommands) {
-            try {
-                Constructor<? extends Command> constructor = commandClass.getConstructor();
-                constructor.setAccessible(true);
-                Command c = constructor.newInstance();
-                if (!c.isDisabled()) ProxyServer.getInstance().getPluginManager().registerCommand(UltraStaffChat.getInstance(), c);
-            } catch (Exception ex) {
-                Common.error(ErrorCode.REGISTER_FAILED_COMMAND, "Failed to register command.", ex);
-            }
-        }
-    }
+		for(Class<? extends Command> commandClass : allCommands) {
+			try {
+				Constructor<? extends Command> constructor = commandClass.getConstructor();
+				constructor.setAccessible(true);
+				Command c = constructor.newInstance();
+				if(!c.isDisabled())
+					ProxyServer.getInstance().getPluginManager().registerCommand(UltraStaffChat.getInstance(), c);
+			} catch (Exception ex) {
+				Common.error(ErrorCode.REGISTER_FAILED_COMMAND, "Failed to register command.", ex);
+			}
+		}
+	}
 
 }

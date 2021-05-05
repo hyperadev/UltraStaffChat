@@ -27,57 +27,59 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class StaffChatToggleCommand extends Command {
-    public StaffChatToggleCommand() {
-        super("staffchattoggle", null, "sctoggle");
-    }
 
-    @Override
-    public void execute(CommandSender sender, String[] args) {
-        Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
+	public StaffChatToggleCommand() {
+		super("staffchattoggle", null, "sctoggle");
+	}
 
-        if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-toggle"))) {
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
-            return;
-        }
+	@Override
+	public void execute(CommandSender sender, String[] args) {
+		Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
 
-        if (!(sender instanceof ProxiedPlayer)) {
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("ingame-only")));
-            return;
-        }
+		if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-toggle"))) {
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
+			return;
+		}
 
-        if (args.length > 1) {
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-usage")));
-            return;
-        }
+		if(!(sender instanceof ProxiedPlayer)) {
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("ingame-only")));
+			return;
+		}
+
+		if(args.length > 1) {
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-usage")));
+			return;
+		}
 
 
-        ProxiedPlayer p = (ProxiedPlayer) sender;
-        if (args.length == 0) {
-            boolean toggled = StaffChat.toggleChatStaffChat(p);
-            if (toggled) {
-                audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
-            } else
-                audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
-            return;
-        }
+		ProxiedPlayer p = (ProxiedPlayer) sender;
+		if(args.length == 0) {
+			boolean toggled = StaffChat.toggleChatStaffChat(p);
+			if(toggled) {
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
+			} else
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
+			return;
+		}
 
-        if (args[0].matches("(?i:(off|false|disable(d)?))")) {
-            StaffChat.disableChatStaffChat(p);
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
-            return;
-        }
+		if(args[0].matches("(?i:(off|false|disable(d)?))")) {
+			StaffChat.disableChatStaffChat(p);
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
+			return;
+		}
 
-        if (args[0].matches("(?i:(on|true|enable(d)?))")) {
-            StaffChat.enableChatStaffChat(p);
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
-            return;
-        }
+		if(args[0].matches("(?i:(on|true|enable(d)?))")) {
+			StaffChat.enableChatStaffChat(p);
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
+			return;
+		}
 
-        audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-usage")));
-    }
+		audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-usage")));
+	}
 
-    @Override
-    public boolean isDisabled() {
-        return !UltraStaffChat.getConfig().getBoolean("toggle-enabled");
-    }
+	@Override
+	public boolean isDisabled() {
+		return !UltraStaffChat.getConfig().getBoolean("toggle-enabled");
+	}
+
 }

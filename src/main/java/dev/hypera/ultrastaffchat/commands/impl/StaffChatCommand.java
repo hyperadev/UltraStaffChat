@@ -28,41 +28,42 @@ import net.md_5.bungee.api.CommandSender;
 
 public class StaffChatCommand extends Command {
 
-    public StaffChatCommand() {
-        super("staffchat", null, "sc");
-    }
+	public StaffChatCommand() {
+		super("staffchat", null, "sc");
+	}
 
-    @Override
-    public void execute(CommandSender sender, String[] args) {
-        Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
+	@Override
+	public void execute(CommandSender sender, String[] args) {
+		Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
 
-        if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-talk"))) {
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
-            return;
-        }
+		if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-talk"))) {
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
+			return;
+		}
 
-        if (args.length == 0) {
-            audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("staffchat-usage")));
-            return;
-        }
+		if(args.length == 0) {
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("staffchat-usage")));
+			return;
+		}
 
-        if (StaffChat.staffChatIsMuted()) {
-            if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-bypass"))) {
-                audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("staffchat-muted")));
-                return;
-            }
-        }
+		if(StaffChat.staffChatIsMuted()) {
+			if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-bypass"))) {
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("staffchat-muted")));
+				return;
+			}
+		}
 
-        StringBuilder message = new StringBuilder();
-        for (String word : args) {
-            message.append(word).append(" ");
-        }
-        message.deleteCharAt(message.length() - 1);
-        StaffChatManager.broadcastMessage(sender, message.toString());
-    }
+		StringBuilder message = new StringBuilder();
+		for(String word : args) {
+			message.append(word).append(" ");
+		}
+		message.deleteCharAt(message.length() - 1);
+		StaffChatManager.broadcastMessage(sender, message.toString());
+	}
 
-    @Override
-    public boolean isDisabled() {
-        return false;
-    }
+	@Override
+	public boolean isDisabled() {
+		return false;
+	}
+
 }

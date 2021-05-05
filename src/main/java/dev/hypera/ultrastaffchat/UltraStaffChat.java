@@ -20,12 +20,11 @@ package dev.hypera.ultrastaffchat;
 
 import dev.hypera.ultrastaffchat.commands.CommandManager;
 import dev.hypera.ultrastaffchat.config.Config;
+import dev.hypera.ultrastaffchat.listeners.ListenerManager;
 import dev.hypera.ultrastaffchat.objects.ErrorCode;
 import dev.hypera.ultrastaffchat.utils.Common;
 import dev.hypera.ultrastaffchat.utils.Debug;
-import dev.hypera.ultrastaffchat.listeners.ListenerManager;
 import dev.hypera.ultrastaffchat.utils.Discord;
-
 import dev.hypera.updatelib.UpdateLibBuilder;
 import dev.hypera.updatelib.internal.UpdateLib;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
@@ -123,4 +122,5 @@ public final class UltraStaffChat extends Plugin {
 			throw new IllegalStateException("Cannot retrieve UpdateLib while the plugin is not enabled");
 		return updateLib;
 	}
+
 }

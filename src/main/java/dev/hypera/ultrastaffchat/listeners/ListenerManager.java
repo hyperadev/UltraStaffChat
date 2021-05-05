@@ -30,21 +30,20 @@ import java.util.Set;
 
 public class ListenerManager {
 
-    public static void setup() {
-        Reflections reflections = new Reflections("dev.hypera.ultrastaffchat.listeners.impl");
+	public static void setup() {
+		Reflections reflections = new Reflections("dev.hypera.ultrastaffchat.listeners.impl");
 
-        Set<Class<? extends Listener>> allListeners =
-                reflections.getSubTypesOf(Listener.class);
+		Set<Class<? extends Listener>> allListeners = reflections.getSubTypesOf(Listener.class);
 
-        for (Class<? extends Listener> listenerClass : allListeners) {
-            try {
-                Constructor<? extends Listener> constructor = listenerClass.getConstructor();
-                constructor.setAccessible(true);
-                ProxyServer.getInstance().getPluginManager().registerListener(UltraStaffChat.getInstance(), constructor.newInstance());
-            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
-                Common.error(ErrorCode.REGISTER_FAILED_LISTENER, "Failed to register listener.", ex);
-            }
-        }
-    }
+		for(Class<? extends Listener> listenerClass : allListeners) {
+			try {
+				Constructor<? extends Listener> constructor = listenerClass.getConstructor();
+				constructor.setAccessible(true);
+				ProxyServer.getInstance().getPluginManager().registerListener(UltraStaffChat.getInstance(), constructor.newInstance());
+			} catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
+				Common.error(ErrorCode.REGISTER_FAILED_LISTENER, "Failed to register listener.", ex);
+			}
+		}
+	}
 
 }

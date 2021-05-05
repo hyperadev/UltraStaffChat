@@ -23,24 +23,25 @@ import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Cancellable;
 
 /**
- * Called when a player with the permission `staffchat.join` joins the proxy. When cancelled, the staff join message is not shown.
+ * Called when a player with the permission `staffchat.join` joins the proxy. When cancelled, the staff join message is
+ * not shown.
  */
 public class StaffJoinEvent extends PostLoginEvent implements Cancellable {
 
-    private boolean cancelled = false;
+	private boolean cancelled = false;
 
-    public StaffJoinEvent(ProxiedPlayer player) {
-        super(player);
-    }
+	public StaffJoinEvent(ProxiedPlayer player) {
+		super(player);
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancelled = cancel;
+	}
 
 }

@@ -41,15 +41,11 @@ public class Common {
 	private static final int bStatsId = 5040;
 	private static final long resourceId = 68956;
 	private static final int configVersion = 36;
-	private static final String[] contributors = new String[] {
-			"Joshua Sing",
-			"Christian F",
-			"SLLCoding",
-			"Hunter Y"
-	};
+	private static final String[] contributors = new String[] { "Joshua Sing", "Christian F", "SLLCoding", "Hunter Y" };
 
 	/**
 	 * Logs messages to console.
+	 *
 	 * @param messages The messages to be logged.
 	 */
 	public static void log(String... messages) {
@@ -59,6 +55,7 @@ public class Common {
 
 	/**
 	 * Logs messages to console with a prefix.
+	 *
 	 * @param messages The messages to be logged.
 	 */
 	public static void logPrefix(String... messages) {
@@ -68,8 +65,9 @@ public class Common {
 
 	/**
 	 * Logs an error log to console.
+	 *
 	 * @param errorCode Error code.
-	 * @param message Any information about the error.
+	 * @param message   Any information about the error.
 	 * @param throwable Throwable.
 	 */
 	public static void error(ErrorCode errorCode, String message, Throwable throwable) {
@@ -89,7 +87,9 @@ public class Common {
 
 	/**
 	 * Colourises a message and converts it to a BaseComponent.
+	 *
 	 * @param message The message to be colourised.
+	 *
 	 * @return BaseComponent Colourised message.
 	 */
 	public static BaseComponent[] colour(String message) {
@@ -98,7 +98,9 @@ public class Common {
 
 	/**
 	 * Colourises a message.
+	 *
 	 * @param message The message to be colourised.
+	 *
 	 * @return Colourised message.
 	 */
 	public static String basicColour(String message) {
@@ -107,8 +109,10 @@ public class Common {
 
 	/**
 	 * Checks if a CommandSender has a permission.
-	 * @param sender The CommandSender to be checked.
+	 *
+	 * @param sender     The CommandSender to be checked.
 	 * @param permission The permission.
+	 *
 	 * @return If the CommandSender has the permission.
 	 */
 	public static boolean hasPermission(CommandSender sender, String permission) {
@@ -117,6 +121,7 @@ public class Common {
 
 	/**
 	 * Get SpigotMC Resource ID.
+	 *
 	 * @return Resource ID.
 	 */
 	public static long getResourceId() {
@@ -125,6 +130,7 @@ public class Common {
 
 	/**
 	 * Get bStats ID.
+	 *
 	 * @return bStats ID.
 	 */
 	public static int getbStatsId() {
@@ -133,6 +139,7 @@ public class Common {
 
 	/**
 	 * Get current configuration version.
+	 *
 	 * @return Current config version.
 	 */
 	public static int getConfigVersion() {
@@ -141,6 +148,7 @@ public class Common {
 
 	/**
 	 * Returns a list of people that have contributed to UltraStaffChat.
+	 *
 	 * @return contributors.
 	 */
 	public static String[] getContributors() {
@@ -149,6 +157,7 @@ public class Common {
 
 	/**
 	 * Get a Component message from the config.
+	 *
 	 * @return (Adventure Component) message.
 	 */
 	public static Component message(String key) {
@@ -157,6 +166,7 @@ public class Common {
 
 	/**
 	 * Turns a message into an Adventure Component.
+	 *
 	 * @return (Adventure Component) message.
 	 */
 	public static Component adventurise(String message) {
@@ -165,17 +175,19 @@ public class Common {
 
 	/**
 	 * Get a raw message from the config.
+	 *
 	 * @return (String) message.
 	 */
 	public static String messageRaw(String key) {
 		Config config = UltraStaffChat.getConfig();
 		String message = config.getString(key);
-		if (message == null) return "&7undefined";
+		if(message == null)
+			return "&7undefined";
 		return message;
 	}
 
 	public static String getDisplayNameSafe(CommandSender s) {
-		if ((s instanceof ProxiedPlayer)) {
+		if((s instanceof ProxiedPlayer)) {
 			return ((ProxiedPlayer) s).getDisplayName();
 		} else {
 			return "Console";
@@ -183,10 +195,11 @@ public class Common {
 	}
 
 	public static String getServerSafe(CommandSender s) {
-		if ((s instanceof ProxiedPlayer)) {
+		if((s instanceof ProxiedPlayer)) {
 			return ((ProxiedPlayer) s).getServer().getInfo().getName();
 		} else {
 			return "Undefined";
 		}
 	}
+
 }

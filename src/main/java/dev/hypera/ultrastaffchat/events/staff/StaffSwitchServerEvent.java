@@ -24,37 +24,37 @@ import net.md_5.bungee.api.plugin.Event;
 
 public class StaffSwitchServerEvent extends Event implements Cancellable {
 
-    private final ProxiedPlayer player;
-    private final String from;
-    private final String to;
-    private boolean cancelled = false;
+	private final ProxiedPlayer player;
+	private final String from;
+	private final String to;
+	private boolean cancelled = false;
 
-    public StaffSwitchServerEvent(ProxiedPlayer player, String from, String to) {
-        this.player = player;
-        this.from = from;
-        this.to = to;
-    }
+	public StaffSwitchServerEvent(ProxiedPlayer player, String from, String to) {
+		this.player = player;
+		this.from = from;
+		this.to = to;
+	}
 
-    public ProxiedPlayer getPlayer() {
-        return player;
-    }
+	public ProxiedPlayer getPlayer() {
+		return player;
+	}
 
-    public String getFrom() {
-        return from;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public String getTo() {
-        return to;
-    }
+	public String getTo() {
+		return to;
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancelled = cancel;
+	}
 
 }

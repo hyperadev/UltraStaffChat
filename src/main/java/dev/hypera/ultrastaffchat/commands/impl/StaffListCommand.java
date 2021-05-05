@@ -37,7 +37,7 @@ public class StaffListCommand extends Command {
 	public void execute(CommandSender sender, String[] args) {
 		Audience audience = UltraStaffChat.getInstance().getAdventure().sender(sender);
 
-		if (!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-list"))) {
+		if(!sender.hasPermission(UltraStaffChat.getConfig().getString("permission-list"))) {
 			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("no-permission")));
 			return;
 		}
