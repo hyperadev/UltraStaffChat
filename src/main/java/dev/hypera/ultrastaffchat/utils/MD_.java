@@ -50,7 +50,8 @@ public class MD_ implements Listener {
     }
 
     private static StringBuilder parseParts(String translated) {
-        String[] parts = (" " + translated).split("" + ChatColor.COLOR_CHAR);
+        String partForPart = (" " + translated);
+        String[] parts = partForPart.split("" + ChatColor.COLOR_CHAR);
         StringBuilder builder = new StringBuilder();
         for (String part : parts) {
             if (part.isEmpty()) {
