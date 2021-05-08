@@ -46,6 +46,10 @@ public class MD_ implements Listener {
 
         translated = translated.replace("\\*", "*").replace("\\_", "_").replace("\\~", "~");
 
+        return parseParts(translated).toString();
+    }
+
+    private static StringBuilder parseParts(String translated) {
         String[] parts = (" " + translated).split("" + ChatColor.COLOR_CHAR);
         StringBuilder builder = new StringBuilder();
         for (String part : parts) {
@@ -101,8 +105,7 @@ public class MD_ implements Listener {
                 builder.append(part.substring(1));
             }
         }
-
-        return builder.toString();
+        return builder;
     }
 
     private static String replaceWith(String message, String quot, String pre, String suf) {
