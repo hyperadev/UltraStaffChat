@@ -34,7 +34,7 @@ import static dev.hypera.ultrastaffchat.utils.Common.messageRaw;
 public class StaffChatManager {
 
 	public static void broadcastMessage(CommandSender sender, String m) {
-		String message = MD_.parseMarkdown(m);
+		String message = (sender.hasPermission(UltraStaffChat.getConfig().getString("permission-chat-format")) ? MD_.parseMarkdown(m) : m);
 		UltraStaffChat.getInstance().getAdventure().filter(person -> {
 			if(!person.hasPermission(messageRaw("permission-read")))
 				return false;

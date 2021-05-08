@@ -397,6 +397,9 @@ permission-list: "staffchat.list"
 # Permission | Staff (Permission needed to display on Staff List)
 permission-staff: "staffchat.staff"
 
+# Permission | Chat Formatting
+permission-chat-format: "staffchat.format"
+
 # Permission | Update Notification
 permission-update: "ultrastaffchat.update"
 
