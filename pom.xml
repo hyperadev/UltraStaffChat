@@ -24,7 +24,7 @@
 
     <groupId>dev.hypera</groupId>
     <artifactId>UltraStaffChat</artifactId>
-    <version>5.0.2</version>
+    <version>5.1.0</version>
     <packaging>jar</packaging>
 
     <name>UltraStaffChat</name>
