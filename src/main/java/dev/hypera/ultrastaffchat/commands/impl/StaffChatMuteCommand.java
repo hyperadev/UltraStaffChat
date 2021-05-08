@@ -56,21 +56,21 @@ public class StaffChatMuteCommand extends Command {
 		if(args.length == 0) {
 			boolean toggled = StaffChat.toggleMessages(p);
 			if(toggled) {
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message").replaceAll("\\{mute}", "&cmuted")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message-on")));
 			} else
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message").replaceAll("\\{mute}", "&aunmuted")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message-off")));
 			return;
 		}
 
-		if(args[0].matches("(?i:(off|false|mute(d)?|disable(d)?))")) {
+		if(args[0].matches("(?i:(off|false|disable(d)?|unmute(d)?))")) {
 			StaffChat.enableMessages(p);
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message").replaceAll("\\{mute}", "&cmuted")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message-off")));
 			return;
 		}
 
-		if(args[0].matches("(?i:(on|true|unmute(d)?|enable(d)?))")) {
+		if(args[0].matches("(?i:(on|true|enable(d)?|mute(d)?))")) {
 			StaffChat.disableMessages(p);
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message").replaceAll("\\{mute}", "&aunmuted")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-message-on")));
 			return;
 		}
 
