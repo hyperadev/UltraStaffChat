@@ -79,23 +79,29 @@ public class MD_ implements Listener {
             }
             builder.append(color + colorBuilder.toString());
         } else {
-            if (colorCharacter == 'z') builder.append(ChatColor.BOLD);
-            else if (colorCharacter == 'x') builder.append(ChatColor.ITALIC);
-            else if (colorCharacter == 'v') builder.append(ChatColor.UNDERLINE);
-            else if (colorCharacter == 'q') builder.append(ChatColor.ITALIC);
-            else if (colorCharacter == 'm') builder.append(ChatColor.STRIKETHROUGH);
-            else if (colorCharacter == 'w') builder.append(ChatColor.MAGIC);
-            else if (colorCharacter == 'Z') colors = colors.replace(ChatColor.BOLD.toString(), "");
-            else if (colorCharacter == 'X') colors = colors.replace(ChatColor.ITALIC.toString(), "");
-            else if (colorCharacter == 'V') colors = colors.replace(ChatColor.UNDERLINE.toString(), "");
-            else if (colorCharacter == 'Q') colors = colors.replace(ChatColor.ITALIC.toString(), "");
-            else if (colorCharacter == 'M') colors = colors.replace(ChatColor.STRIKETHROUGH.toString(), "");
-            else if (colorCharacter == 'W') colors = colors.replace(ChatColor.MAGIC.toString(), "");
-            if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET + colors);
+            colors = parseColours(colorCharacter, builder, colors);
         }
         if (part.length() > 1) {
             builder.append(part.substring(1));
         }
+    }
+
+    private static String parseColours(char colorCharacter, StringBuilder builder, String c) {
+        String colors = c;
+        if (colorCharacter == 'z') builder.append(ChatColor.BOLD);
+        else if (colorCharacter == 'x') builder.append(ChatColor.ITALIC);
+        else if (colorCharacter == 'v') builder.append(ChatColor.UNDERLINE);
+        else if (colorCharacter == 'q') builder.append(ChatColor.ITALIC);
+        else if (colorCharacter == 'm') builder.append(ChatColor.STRIKETHROUGH);
+        else if (colorCharacter == 'w') builder.append(ChatColor.MAGIC);
+        else if (colorCharacter == 'Z') colors = colors.replace(ChatColor.BOLD.toString(), "");
+        else if (colorCharacter == 'X') colors = colors.replace(ChatColor.ITALIC.toString(), "");
+        else if (colorCharacter == 'V') colors = colors.replace(ChatColor.UNDERLINE.toString(), "");
+        else if (colorCharacter == 'Q') colors = colors.replace(ChatColor.ITALIC.toString(), "");
+        else if (colorCharacter == 'M') colors = colors.replace(ChatColor.STRIKETHROUGH.toString(), "");
+        else if (colorCharacter == 'W') colors = colors.replace(ChatColor.MAGIC.toString(), "");
+        if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET + colors);
+        return colors;
     }
 
     private static String replaceWith(String message, String quot, String pre, String suf) {
