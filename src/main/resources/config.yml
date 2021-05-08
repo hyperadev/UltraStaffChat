@@ -242,9 +242,11 @@ staffchat-prefix: "#"
 # Toggle | Enabled
 toggle-enabled: true
 
-# Toggle | Message
-#  - Placeholders: &aOn/&cOff - {toggle}
-toggle-message: "&8[&4&lStaffChat&8] &cStaffChat Toggled {toggle}&c!"
+# Toggle On | Message
+toggle-message-on: "&8[&4&lStaffChat&8] &cStaffChat Toggled &aOn&c!"
+
+# Toggle Off | Message
+toggle-message-off: "&8[&4&lStaffChat&8] &cStaffChat Toggled &cOff&c!"
 
 # Toggle | Usage
 toggle-usage: "&cUsage: /sctoggle <state>"
@@ -255,9 +257,11 @@ toggle-usage: "&cUsage: /sctoggle <state>"
 # Mute | Enabled
 mute-enabled: true
 
-# Mute | Message
-#  - Placeholders: &cMuted/&aUnmuted - {mute}
-mute-message: "&8[&4&lStaffChat&8] &cStaffChat {mute}&c!"
+# Mute On | Message
+mute-message-on: "&8[&4&lStaffChat&8] &cStaffChat &cMuted&c!"
+
+# Mute Off | Message
+mute-message-off: "&8[&4&lStaffChat&8] &cStaffChat &aUnmuted&c!"
 
 # Mute | Usage
 mute-usage: "&cUsage: /scmute <state>"
@@ -267,9 +271,11 @@ mute-usage: "&cUsage: /scmute <state>"
 # Mute | Enabled
 mute-staffchat-enabled: true
 
-# Mute | Message
-#  - Placeholders: &cMuted/&aUnmuted - {mute}
-mute-staffchat-message: "&8[&4&lStaffChat&8] &cStaffChat has been {mute}&c!"
+# Mute On | Message
+mute-staffchat-message-on: "&8[&4&lStaffChat&8] &cStaffChat has been &cMuted&c!"
+
+# Mute Off | Message
+mute-staffchat-message-off: "&8[&4&lStaffChat&8] &cStaffChat has been &aUnmuted&c!"
 
 # Mute | Usage
 mute-staffchat-usage: "&cUsage: /mutesc <state>"
@@ -406,4 +412,4 @@ permission-debug: "ultrastaffchat.debug"
 
 # System | Configuration Version
 #  Used for Internal purposes - Don't edit!
-version: 36
+version: 37
