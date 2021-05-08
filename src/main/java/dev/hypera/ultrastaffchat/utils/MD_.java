@@ -57,41 +57,45 @@ public class MD_ implements Listener {
             if (part.isEmpty()) {
                 continue;
             }
-            char colorCharacter = part.charAt(0);
-            ChatColor color = ChatColor.getByChar(colorCharacter);
-
-            String colors = getLastColors(builder.toString());
-            if (color != null) {
-                StringBuilder colorBuilder = new StringBuilder();
-                for (String cc : colors.split(ChatColor.COLOR_CHAR + "")) {
-                    if (cc.isEmpty()) {
-                        continue;
-                    }
-                    if (isFormat(ChatColor.getByChar(cc.charAt(0)))) {
-                        colorBuilder.append(ChatColor.COLOR_CHAR + cc);
-                    }
-                }
-                builder.append(color + colorBuilder.toString());
-            } else {
-                if (colorCharacter == 'z') builder.append(ChatColor.BOLD);
-                else if (colorCharacter == 'x') builder.append(ChatColor.ITALIC);
-                else if (colorCharacter == 'v') builder.append(ChatColor.UNDERLINE);
-                else if (colorCharacter == 'q') builder.append(ChatColor.ITALIC);
-                else if (colorCharacter == 'm') builder.append(ChatColor.STRIKETHROUGH);
-                else if (colorCharacter == 'w') builder.append(ChatColor.MAGIC);
-                else if (colorCharacter == 'Z') colors = colors.replace(ChatColor.BOLD.toString(), "");
-                else if (colorCharacter == 'X') colors = colors.replace(ChatColor.ITALIC.toString(), "");
-                else if (colorCharacter == 'V') colors = colors.replace(ChatColor.UNDERLINE.toString(), "");
-                else if (colorCharacter == 'Q') colors = colors.replace(ChatColor.ITALIC.toString(), "");
-                else if (colorCharacter == 'M') colors = colors.replace(ChatColor.STRIKETHROUGH.toString(), "");
-                else if (colorCharacter == 'W') colors = colors.replace(ChatColor.MAGIC.toString(), "");
-                if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET + colors);
-            }
-            if (part.length() > 1) {
-                builder.append(part.substring(1));
-            }
+            parsePart(part, builder);
         }
         return builder;
+    }
+
+    private static void parsePart(String part, StringBuilder builder) {
+        char colorCharacter = part.charAt(0);
+        ChatColor color = ChatColor.getByChar(colorCharacter);
+
+        String colors = getLastColors(builder.toString());
+        if (color != null) {
+            StringBuilder colorBuilder = new StringBuilder();
+            for (String cc : colors.split(ChatColor.COLOR_CHAR + "")) {
+                if (cc.isEmpty()) {
+                    continue;
+                }
+                if (isFormat(ChatColor.getByChar(cc.charAt(0)))) {
+                    colorBuilder.append(ChatColor.COLOR_CHAR + cc);
+                }
+            }
+            builder.append(color + colorBuilder.toString());
+        } else {
+            if (colorCharacter == 'z') builder.append(ChatColor.BOLD);
+            else if (colorCharacter == 'x') builder.append(ChatColor.ITALIC);
+            else if (colorCharacter == 'v') builder.append(ChatColor.UNDERLINE);
+            else if (colorCharacter == 'q') builder.append(ChatColor.ITALIC);
+            else if (colorCharacter == 'm') builder.append(ChatColor.STRIKETHROUGH);
+            else if (colorCharacter == 'w') builder.append(ChatColor.MAGIC);
+            else if (colorCharacter == 'Z') colors = colors.replace(ChatColor.BOLD.toString(), "");
+            else if (colorCharacter == 'X') colors = colors.replace(ChatColor.ITALIC.toString(), "");
+            else if (colorCharacter == 'V') colors = colors.replace(ChatColor.UNDERLINE.toString(), "");
+            else if (colorCharacter == 'Q') colors = colors.replace(ChatColor.ITALIC.toString(), "");
+            else if (colorCharacter == 'M') colors = colors.replace(ChatColor.STRIKETHROUGH.toString(), "");
+            else if (colorCharacter == 'W') colors = colors.replace(ChatColor.MAGIC.toString(), "");
+            if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET + colors);
+        }
+        if (part.length() > 1) {
+            builder.append(part.substring(1));
+        }
     }
 
     private static String replaceWith(String message, String quot, String pre, String suf) {
