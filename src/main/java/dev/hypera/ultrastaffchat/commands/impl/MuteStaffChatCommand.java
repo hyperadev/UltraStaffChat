@@ -51,21 +51,21 @@ public class MuteStaffChatCommand extends Command {
 		if(args.length == 0) {
 			boolean toggled = StaffChat.toggleStaffChatMute();
 			if(toggled) {
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message").replaceAll("\\{mute}", "&cmuted")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message-on")));
 			} else
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message").replaceAll("\\{mute}", "&aunmuted")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message-off")));
 			return;
 		}
 
 		if(args[0].matches("(?i:(off|false|disable(d)?|unmute(d)?))")) {
 			StaffChat.unmuteStaffChat();
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message").replaceAll("\\{mute}", "&aunmuted")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message-off")));
 			return;
 		}
 
 		if(args[0].matches("(?i:(on|true|enable(d)?|mute(d)?))")) {
 			StaffChat.muteStaffChat();
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message").replaceAll("\\{mute}", "&cmuted")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("mute-staffchat-message-on")));
 			return;
 		}
 

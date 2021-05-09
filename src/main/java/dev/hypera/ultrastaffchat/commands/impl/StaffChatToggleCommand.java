@@ -56,21 +56,21 @@ public class StaffChatToggleCommand extends Command {
 		if(args.length == 0) {
 			boolean toggled = StaffChat.toggleChatStaffChat(p);
 			if(toggled) {
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message-on")));
 			} else
-				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
+				audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message-off")));
 			return;
 		}
 
 		if(args[0].matches("(?i:(off|false|disable(d)?))")) {
 			StaffChat.disableChatStaffChat(p);
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&coff")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message-off")));
 			return;
 		}
 
 		if(args[0].matches("(?i:(on|true|enable(d)?))")) {
 			StaffChat.enableChatStaffChat(p);
-			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message").replaceAll("\\{toggle}", "&aon")));
+			audience.sendMessage(Common.adventurise(UltraStaffChat.getConfig().getString("toggle-message-on")));
 			return;
 		}
 

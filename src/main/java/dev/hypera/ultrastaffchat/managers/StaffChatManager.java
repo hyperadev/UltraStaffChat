@@ -19,12 +19,9 @@
 package dev.hypera.ultrastaffchat.managers;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
-import dev.hypera.ultrastaffchat.events.staff.StaffChatEvent;
-import dev.hypera.ultrastaffchat.events.staff.StaffJoinEvent;
-import dev.hypera.ultrastaffchat.events.staff.StaffLeaveEvent;
-import dev.hypera.ultrastaffchat.events.staff.StaffSwitchServerEvent;
-import dev.hypera.ultrastaffchat.events.staff.StaffToggleAFKEvent;
+import dev.hypera.ultrastaffchat.events.staff.*;
 import dev.hypera.ultrastaffchat.utils.Discord;
+import dev.hypera.ultrastaffchat.utils.MD_;
 import dev.hypera.ultrastaffchat.utils.StaffChat;
 import net.kyori.adventure.audience.Audience;
 import net.md_5.bungee.api.CommandSender;
@@ -36,7 +33,8 @@ import static dev.hypera.ultrastaffchat.utils.Common.messageRaw;
 
 public class StaffChatManager {
 
-	public static void broadcastMessage(CommandSender sender, String message) {
+	public static void broadcastMessage(CommandSender sender, String m) {
+		String message = (sender.hasPermission(UltraStaffChat.getConfig().getString("permission-chat-format")) ? MD_.parseMarkdown(m) : m);
 		UltraStaffChat.getInstance().getAdventure().filter(person -> {
 			if(!person.hasPermission(messageRaw("permission-read")))
 				return false;
