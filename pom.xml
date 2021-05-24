@@ -105,7 +105,7 @@
         <dependency>
             <groupId>dev.hypera</groupId>
             <artifactId>UpdateLib</artifactId>
-            <version>2.1.2</version>
+            <version>3.1.2</version>
         </dependency>
 
         <!-- Reflections for automatic registry -->
