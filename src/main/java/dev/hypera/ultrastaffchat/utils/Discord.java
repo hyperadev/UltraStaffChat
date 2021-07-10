@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class Discord {
 
-	private static final String footer = "UltraStaffChat - Bungeecord v" + UltraStaffChat.getInstance().getDescription().getVersion();
+	private static final String footer = "UltraStaffChat - BungeeCord v" + UltraStaffChat.getInstance().getDescription().getVersion();
 	private static final String footerUrl = "https://i.hypera.dev/assets/hypera-icon-white.png";
 	private static boolean enabled = false;
 	private static String hookURL = "";

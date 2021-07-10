@@ -39,8 +39,8 @@ public class JoinLeaveListener extends Listener {
 		}
 
 		if(UltraStaffChat.getConfig().getBoolean("update-enabled") && Common.hasPermission(event.getPlayer(), Common.messageRaw("permission-update"))) {
-			if(null != UltraStaffChat.getInstance().getUpdateLib().getLastResponse() && UltraStaffChat.getInstance().getUpdateLib().getLastResponse().isUpdateAvailable()) {
-				UltraStaffChat.getInstance().getAdventure().player(event.getPlayer()).sendMessage(Common.adventurise(Common.messageRaw("update-message").replace("{version}", UltraStaffChat.getInstance().getUpdateLib().getLastResponse().getSpigotVersion()).replace("{current}", UltraStaffChat.getInstance().getDescription().getVersion())));
+			if(null != UltraStaffChat.getInstance().getUpdateLib().getLastStatus() && UltraStaffChat.getInstance().getUpdateLib().getLastStatus().isAvailable()) {
+				UltraStaffChat.getInstance().getAdventure().player(event.getPlayer()).sendMessage(Common.adventurise(Common.messageRaw("update-message").replace("{version}", UltraStaffChat.getInstance().getUpdateLib().getLastStatus().getDistributedVersion()).replace("{current}", UltraStaffChat.getInstance().getDescription().getVersion())));
 			}
 		}
 

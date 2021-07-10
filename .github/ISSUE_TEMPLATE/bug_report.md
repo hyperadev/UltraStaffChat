@@ -21,8 +21,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment**
  - OS: [e.g. Ubuntu 20.04]
- - Proxy Version: [e.g. BungeeCord 1.16.5]
- - UltraStaffChat Version: [e.g. 5.0.0]
+ - Proxy Version: [e.g. BungeeCord 1.17]
+ - UltraStaffChat Version: [e.g. 5.1.1]
 
 **Advanced Debug Log**
 Please provide an advanced debug log, you can get this using the command `/usc debug --a`

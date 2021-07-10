@@ -25,8 +25,8 @@ import dev.hypera.ultrastaffchat.objects.ErrorCode;
 import dev.hypera.ultrastaffchat.utils.Common;
 import dev.hypera.ultrastaffchat.utils.Debug;
 import dev.hypera.ultrastaffchat.utils.Discord;
+import dev.hypera.updatelib.UpdateLib;
 import dev.hypera.updatelib.UpdateLibBuilder;
-import dev.hypera.updatelib.internal.UpdateLib;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
@@ -65,10 +65,10 @@ public final class UltraStaffChat extends Plugin {
 			}
 
 			adventure = BungeeAudiences.create(this);
-			updateLib = UpdateLibBuilder.create(getDescription().getVersion(), Common.getResourceId()).setConsumer(response -> {
-				if(response.isUpdateAvailable())
-					Common.logPrefix("&cAn update is available! " + getDescription().getVersion() + " -> " + updateLib.getLastResponse().getSpigotVersion());
-			}).build();
+			updateLib = UpdateLibBuilder.create(getDescription().getVersion(), Common.getResourceId()).setCompleteAction(status -> {
+				if(status.isAvailable())
+					Common.logPrefix("&cAn update is available! " + getDescription().getVersion() + " -> " + status.getDistributedVersion());
+			}).setErrorHandler(error -> {}).build();
 
 			ListenerManager.setup();
 			CommandManager.setup();

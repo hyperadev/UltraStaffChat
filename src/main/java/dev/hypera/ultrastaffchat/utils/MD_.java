@@ -74,10 +74,10 @@ public class MD_ implements Listener {
                     continue;
                 }
                 if (isFormat(ChatColor.getByChar(cc.charAt(0)))) {
-                    colorBuilder.append(ChatColor.COLOR_CHAR + cc);
+                    colorBuilder.append(ChatColor.COLOR_CHAR).append(cc);
                 }
             }
-            builder.append(color + colorBuilder.toString());
+            builder.append(color).append(colorBuilder);
         } else {
             colors = parseColours(colorCharacter, builder, colors);
         }
@@ -100,7 +100,7 @@ public class MD_ implements Listener {
         else if (colorCharacter == 'Q') colors = colors.replace(ChatColor.ITALIC.toString(), "");
         else if (colorCharacter == 'M') colors = colors.replace(ChatColor.STRIKETHROUGH.toString(), "");
         else if (colorCharacter == 'W') colors = colors.replace(ChatColor.MAGIC.toString(), "");
-        if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET + colors);
+        if (Character.isUpperCase(colorCharacter)) builder.append(ChatColor.RESET).append(colors);
         return colors;
     }
 
@@ -115,7 +115,7 @@ public class MD_ implements Listener {
     public static List<String> getMatches(String string, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(string);
-        List<String> matches = new ArrayList<String>();
+        List<String> matches = new ArrayList<>();
         while (matcher.find()) {
             matches.add(matcher.group(1));
         }
@@ -138,7 +138,7 @@ public class MD_ implements Listener {
                 ChatColor color = ChatColor.getByChar(c);
 
                 if (color != null) {
-                    result = color.toString() + result;
+                    result = color + result;
 
                     // Once we find a color or reset we can stop searching
                     if (!isFormat(color) || color.equals(ChatColor.RESET)) {
