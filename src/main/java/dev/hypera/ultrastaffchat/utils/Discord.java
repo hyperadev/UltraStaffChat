@@ -20,6 +20,7 @@ package dev.hypera.ultrastaffchat.utils;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
 import dev.hypera.ultrastaffchat.utils.DiscordWebhook.EmbedObject;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -295,7 +296,7 @@ public class Discord {
 	}
 
 	private static String messagePlaceholders(String string, CommandSender s, String m) {
-		return string.replaceAll("\\{message}", m).replaceAll("\\{player}", Common.getDisplayNameSafe(s)).replaceAll("\\{server}", Common.getServerSafe(s));
+		return string.replaceAll("\\{message}", stripColor(m)).replaceAll("\\{player}", Common.getDisplayNameSafe(s)).replaceAll("\\{server}", Common.getServerSafe(s));
 	}
 
 	private static String join_leavePlaceholders(String string, ProxiedPlayer p) {
@@ -319,6 +320,10 @@ public class Discord {
 
 	private static DiscordWebhook.EmbedObject createEmbed() {
 		return new DiscordWebhook.EmbedObject().setFooter(footer, footerUrl);
+	}
+
+	private static String stripColor(String input) {
+		return input.replaceAll("(?i)[§&][0-9A-FK-ORX]", "");
 	}
 
 }
