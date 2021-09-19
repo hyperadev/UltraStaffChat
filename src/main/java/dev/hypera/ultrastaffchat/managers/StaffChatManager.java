@@ -44,7 +44,7 @@ public class StaffChatManager {
 			ProxyServer.getInstance().getPluginManager().callEvent(staffChatEvent);
 			return !staffChatEvent.isCancelled();
 		}).sendMessage(adventurise(messageRaw("staffchat-format").replace("{player}", getName(sender)).replace("{server}", getServerSafe(sender)).replace("{message}", message)));
-		Discord.broadcastDiscordStaffChatMessage(sender, message);
+		Discord.broadcastDiscordStaffChatMessage(sender, m);
 	}
 
 	public static void broadcastAFK(ProxiedPlayer player, boolean afk) {

@@ -3,6 +3,7 @@
  */
 package dev.hypera.ultrastaffchat.utils;
 
+import java.nio.charset.StandardCharsets;
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.Color;
 import java.io.IOException;
@@ -151,7 +152,7 @@ public class DiscordWebhook {
 		connection.setRequestMethod("POST");
 
 		OutputStream stream = connection.getOutputStream();
-		stream.write(json.toString().getBytes());
+		stream.write(json.toString().getBytes(StandardCharsets.UTF_8));
 		stream.flush();
 		stream.close();
 
