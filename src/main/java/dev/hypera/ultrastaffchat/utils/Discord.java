@@ -20,6 +20,7 @@ package dev.hypera.ultrastaffchat.utils;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
 import dev.hypera.ultrastaffchat.utils.DiscordWebhook.EmbedObject;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -83,7 +84,7 @@ public class Discord {
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
 				DiscordWebhook hook = getHook();
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-join-format");
 					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
 					hook.execute();
@@ -118,7 +119,7 @@ public class Discord {
 			try {
 				DiscordWebhook hook = getHook();
 
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-leave-format");
 					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
 					hook.execute();
@@ -153,7 +154,7 @@ public class Discord {
 			try {
 				DiscordWebhook hook = getHook();
 
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-switch-format");
 					hook.setContent(switchPlaceholders(textFormat.getString("text"), p, from, to));
 					try {
@@ -192,7 +193,7 @@ public class Discord {
 			try {
 				DiscordWebhook hook = getHook();
 
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-format");
 					hook.setContent(messagePlaceholders(textFormat.getString("text"), s, message));
 					try {
@@ -231,9 +232,9 @@ public class Discord {
 			try {
 				DiscordWebhook hook = getHook();
 
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-enable-format");
-					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
+					hook.setContent(afkPlaceholders(textFormat.getString("text"), p));
 					hook.execute();
 					return;
 				}
@@ -266,9 +267,9 @@ public class Discord {
 			try {
 				DiscordWebhook hook = getHook();
 
-				if(UltraStaffChat.getConfig().getBoolean("discord-embed").equals(false)) {
+				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
 					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-disable-format");
-					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
+					hook.setContent(afkPlaceholders(textFormat.getString("text"), p));
 					hook.execute();
 					return;
 				}
@@ -295,19 +296,19 @@ public class Discord {
 	}
 
 	private static String messagePlaceholders(String string, CommandSender s, String m) {
-		return string.replaceAll("\\{message}", m).replaceAll("\\{player}", Common.getDisplayNameSafe(s)).replaceAll("\\{server}", Common.getServerSafe(s));
+		return escape(string.replaceAll("\\{message}", stripColor(m)).replaceAll("\\{player}", Common.getDisplayNameSafe(s)).replaceAll("\\{server}", Common.getServerSafe(s)));
 	}
 
 	private static String join_leavePlaceholders(String string, ProxiedPlayer p) {
-		return string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{server}", Common.getServerSafe(p));
+		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{server}", Common.getServerSafe(p)));
 	}
 
 	private static String switchPlaceholders(String string, ProxiedPlayer p, String from, String to) {
-		return string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{to}", to).replaceAll("\\{from}", from);
+		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{to}", to).replaceAll("\\{from}", from));
 	}
 
 	private static String afkPlaceholders(String string, ProxiedPlayer p) {
-		return string.replaceAll("\\{player}", Common.getDisplayNameSafe(p));
+		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)));
 	}
 
 	private static DiscordWebhook getHook() {
@@ -319,6 +320,14 @@ public class Discord {
 
 	private static DiscordWebhook.EmbedObject createEmbed() {
 		return new DiscordWebhook.EmbedObject().setFooter(footer, footerUrl);
+	}
+
+	private static String escape(String input) {
+		return input.replaceAll("\"", "\\\\\"");
+	}
+
+	private static String stripColor(String input) {
+		return input.replaceAll("(?i)[§&][0-9A-FK-ORX]", "");
 	}
 
 }
