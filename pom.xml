@@ -57,6 +57,14 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>dev.hypera.ultrastaffchat.metrics</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>dev.hypera.ultrastaffchat.adventure</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.examination</pattern>
+                            <shadedPattern>dev.hypera.ultrastaffchat.examination</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
