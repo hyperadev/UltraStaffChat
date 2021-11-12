@@ -67,6 +67,16 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+							<relocations>
+                                <relocation>
+                                    <pattern>net.kyori.adventure</pattern>
+                                    <shadedPattern>dev.hypera.ultrastaffchat.libraries.adventure</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.kyori.examination</pattern>
+                                    <shadedPattern>dev.hypera.ultrastaffchat.libraries.examination</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
