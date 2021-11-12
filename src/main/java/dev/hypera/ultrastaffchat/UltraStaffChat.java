@@ -65,10 +65,12 @@ public final class UltraStaffChat extends Plugin {
 			}
 
 			adventure = BungeeAudiences.create(this);
-			updateLib = UpdateLibBuilder.create(getDescription().getVersion(), Common.getResourceId()).setCompleteAction(status -> {
-				if(status.isAvailable())
-					Common.logPrefix("&cAn update is available! " + getDescription().getVersion() + " -> " + status.getDistributedVersion());
-			}).setErrorHandler(error -> {}).build();
+			updateLib = UpdateLibBuilder.create()
+					.version(getDescription().getVersion())
+					.resource(Common.getResourceId())
+					.handler(status -> {
+						if (status.isAvailable()) Common.logPrefix("&cAn update is available! " + getDescription().getVersion() + " -> " + status.getDistributedVersion());
+					}).build();
 
 			ListenerManager.setup();
 			CommandManager.setup();
