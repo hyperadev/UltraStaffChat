@@ -37,6 +37,8 @@ public class Common {
 
 	private static final String logPrefix = "&7[&c&lUltraStaffChat&7] &f";
 	private static final String errorPrefix = "&7[&4&lError&7] &4";
+	private static final Component logPrefixAdventure = adventurise(logPrefix);
+	private static final Component errorPrefixAdventure = adventurise(errorPrefix);
 
 	private static final int bStatsId = 5040;
 	private static final long resourceId = 68956;
@@ -162,6 +164,42 @@ public class Common {
 	 */
 	public static Component message(String key) {
 		return adventurise(messageRaw(key));
+	}
+
+	/**
+	 * Get the legacy ampersand log prefix
+	 *
+	 * @return (String) prefix.
+	 */
+	public static String getLogPrefix() {
+		return logPrefix;
+	}
+
+	/**
+	 * Get the legacy ampersand error prefix
+	 *
+	 * @return (String) error prefix.
+	 */
+	public static String getErrorPrefix() {
+		return errorPrefix;
+	}
+
+	/**
+	 * Get the component log prefix
+	 *
+	 * @return (Component) prefix.
+	 */
+	public static Component getLogPrefixAdventure() {
+		return logPrefixAdventure;
+	}
+
+	/**
+	 * Get the component error prefix
+	 *
+	 * @return (Component) error prefix.
+	 */
+	public static Component getErrorPrefixAdventure() {
+		return errorPrefixAdventure;
 	}
 
 	/**
