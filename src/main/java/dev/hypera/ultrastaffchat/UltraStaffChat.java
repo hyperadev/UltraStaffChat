@@ -64,13 +64,13 @@ public final class UltraStaffChat extends Plugin {
 			}
 
 			adventure = BungeeAudiences.create(this);
-			UpdateLib.builder()
+			updateLib = UpdateLib.builder()
 					.version(getDescription().getVersion())
 					.resource(Common.getResourceId())
-					.build().check().thenAccept(status -> {
+					.handler(status -> {
 						if (status.isAvailable())
 							Common.logPrefix("&cAn update is available! " + getDescription().getVersion() + " -> " + status.getDistributedVersion());
-					});
+					}).build();
 
 			ListenerManager.setup();
 			CommandManager.setup();
