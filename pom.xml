@@ -57,6 +57,14 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>dev.hypera.ultrastaffchat.metrics</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>dev.hypera.ultrastaffchat.adventure</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.examination</pattern>
+                            <shadedPattern>dev.hypera.ultrastaffchat.examination</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -112,14 +120,14 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
+            <version>0.10.2</version>
         </dependency>
 
         <!-- Adventure for advanced messages -->
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
-            <version>4.9.1</version>
+            <version>4.9.3</version>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
