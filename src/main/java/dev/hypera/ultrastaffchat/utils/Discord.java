@@ -68,7 +68,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordJoin(ProxiedPlayer p) {
-		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-join-messages"))
+		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-join-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -102,7 +102,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordLeave(ProxiedPlayer p) {
-		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-leave-messages"))
+		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-leave-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -137,7 +137,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordSwitch(ProxiedPlayer p, String from, String to) {
-		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-switch-messages"))
+		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-switch-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -215,7 +215,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordAFKEnable(ProxiedPlayer p) {
-		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-enable-messages"))
+		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-enable-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -250,7 +250,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordAFKDisable(ProxiedPlayer p) {
-		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-disable-messages"))
+		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-disable-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
