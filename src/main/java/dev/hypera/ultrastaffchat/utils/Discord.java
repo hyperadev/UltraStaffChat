@@ -20,7 +20,6 @@ package dev.hypera.ultrastaffchat.utils;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
 import dev.hypera.ultrastaffchat.utils.DiscordWebhook.EmbedObject;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -37,35 +36,25 @@ public class Discord {
 	private static String hookURL = "";
 
 	public static void setup() {
-		if(!UltraStaffChat.getConfig().getBoolean("discord-enabled").equals(true))
+		Configuration config = UltraStaffChat.getConfig().getConfiguration();
+		if(!config.getBoolean("discord-enabled"))
 			return;
-		if(UltraStaffChat.getConfig().getString("discord-webhook") == null || UltraStaffChat.getConfig().getString("discord-webhook").contains("XXXXXXXXXXXXXXXXXX")) {
+		if(config.getString("discord-webhook") == null || config.getString("discord-webhook").contains("XXXXXXXXXXXXXXXXXX")) {
 			Common.logPrefix("&cError: Discord messages are enabled but the webhook URL has not been configured!");
 			return;
 		}
 
-		Configuration config = UltraStaffChat.getConfig().getConfiguration();
-		if (config.getSection("discord-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		} else if (config.getSection("discord-join-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		} else if (config.getSection("discord-leave-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		} else if (config.getSection("discord-switch-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		} else if (config.getSection("discord-afk-enable-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		} else if (config.getSection("discord-afk-disable-format.embed.fields").getKeys().size() > 25) {
+		if (config.getSection("discord-format.embed.fields").getKeys().size() > 25
+			|| config.getSection("discord-join-format.embed.fields").getKeys().size() > 25
+			|| config.getSection("discord-leave-format.embed.fields").getKeys().size() > 25
+			|| config.getSection("discord-switch-format.embed.fields").getKeys().size() > 25
+			|| config.getSection("discord-afk-enable-format.embed.fields").getKeys().size() > 25
+			|| config.getSection("discord-afk-disable-format.embed.fields").getKeys().size() > 25) {
 			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
 			return;
 		}
 
-		hookURL = UltraStaffChat.getConfig().getString("discord-webhook");
+		hookURL = config.getString("discord-webhook");
 		enabled = true;
 	}
 
@@ -79,7 +68,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordJoin(ProxiedPlayer p) {
-		if(!isEnabled())
+		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-join-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -113,7 +102,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordLeave(ProxiedPlayer p) {
-		if(!isEnabled())
+		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-leave-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -148,7 +137,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordSwitch(ProxiedPlayer p, String from, String to) {
-		if(!isEnabled())
+		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-switch-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -226,7 +215,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordAFKEnable(ProxiedPlayer p) {
-		if(!isEnabled())
+		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-enable-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
@@ -261,7 +250,7 @@ public class Discord {
 	}
 
 	public static void broadcastDiscordAFKDisable(ProxiedPlayer p) {
-		if(!isEnabled())
+		if(!isEnabled() && UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-disable-messages"))
 			return;
 		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
 			try {
