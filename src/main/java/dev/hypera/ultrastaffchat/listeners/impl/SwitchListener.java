@@ -29,13 +29,8 @@ public class SwitchListener extends Listener {
 
 	@EventHandler
 	public void onServerSwitch(ServerSwitchEvent event) {
-		if(Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) {
-			try {
-				StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom().getName(), event.getPlayer().getServer().getInfo().getName());
-			} catch (Exception e) {
-				// Ignore exception, its just a null pointer because the user joined not switched
-			}
-		}
+		if (event.getFrom() != null && Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom().getName(), event.getPlayer().getServer().getInfo().getName());
+		else if (Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-join"))) StaffChatManager.broadcastJoin(event.getPlayer());
 	}
 
 }
