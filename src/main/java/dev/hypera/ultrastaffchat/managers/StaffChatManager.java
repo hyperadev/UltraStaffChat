@@ -26,7 +26,9 @@ import dev.hypera.ultrastaffchat.utils.StaffChat;
 import net.kyori.adventure.audience.Audience;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.connection.Server;
 
 import static dev.hypera.ultrastaffchat.utils.Common.adventurise;
 import static dev.hypera.ultrastaffchat.utils.Common.messageRaw;
@@ -63,15 +65,20 @@ public class StaffChatManager {
 		}
 	}
 
+	@Deprecated
 	public static void broadcastJoin(ProxiedPlayer player) {
+		broadcastJoin(player, player.getServer());
+	}
+
+	public static void broadcastJoin(ProxiedPlayer player, Server server) {
 		if(!UltraStaffChat.getConfig().getBoolean("join-enabled"))
 			return;
-		StaffJoinEvent staffJoinEvent = new StaffJoinEvent(player);
+		StaffJoinEvent staffJoinEvent = new StaffJoinEvent(player, server);
 		ProxyServer.getInstance().getPluginManager().callEvent(staffJoinEvent);
 		if(staffJoinEvent.isCancelled())
 			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-join"));
-		audience.sendMessage(adventurise(messageRaw("join-message").replace("{player}", player.getName()).replace("{server}", getServerSafe(player))));
+		audience.sendMessage(adventurise(messageRaw("join-message").replace("{player}", player.getName()).replace("{server}", server.getInfo().getName())));
 		Discord.broadcastDiscordJoin(player);
 	}
 
@@ -87,7 +94,12 @@ public class StaffChatManager {
 		Discord.broadcastDiscordLeave(player);
 	}
 
+	@Deprecated
 	public static void broadcastSwitch(ProxiedPlayer player, String from, String to) {
+		broadcastSwitch(player, ProxyServer.getInstance().getServerInfo(from), player.getServer());
+	}
+
+	public static void broadcastSwitch(ProxiedPlayer player, ServerInfo from, Server to) {
 		if(!UltraStaffChat.getConfig().getBoolean("switch-enabled"))
 			return;
 		StaffSwitchServerEvent staffSwitchServerEvent = new StaffSwitchServerEvent(player, from, to);
@@ -95,8 +107,10 @@ public class StaffChatManager {
 		if(staffSwitchServerEvent.isCancelled())
 			return;
 		Audience audience = UltraStaffChat.getInstance().getAdventure().permission(messageRaw("permission-switch"));
-		Discord.broadcastDiscordSwitch(player, from, to);
-		audience.sendMessage(adventurise(messageRaw("switch-message").replace("{player}", player.getName()).replace("{from}", from).replace("{to}", to)));
+		String fromName = from.getName();
+		String toName = to.getInfo().getName();
+		Discord.broadcastDiscordSwitch(player, fromName, toName);
+		audience.sendMessage(adventurise(messageRaw("switch-message").replace("{player}", player.getName()).replace("{from}", fromName).replace("{to}", toName)));
 	}
 
 	private static String getName(CommandSender sender) {

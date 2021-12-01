@@ -19,8 +19,10 @@
 package dev.hypera.ultrastaffchat.events.staff;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Cancellable;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Called when a player with the permission `staffchat.join` joins the proxy. When cancelled, the staff join message is
@@ -29,9 +31,21 @@ import net.md_5.bungee.api.plugin.Cancellable;
 public class StaffJoinEvent extends PostLoginEvent implements Cancellable {
 
 	private boolean cancelled = false;
+	private Server server;
 
+	@Deprecated
 	public StaffJoinEvent(ProxiedPlayer player) {
 		super(player);
+	}
+
+	public StaffJoinEvent(ProxiedPlayer player, Server server) {
+		this(player);
+		this.server = server;
+	}
+
+	@ApiStatus.Experimental
+	public Server getServer() {
+		return server;
 	}
 
 	@Override
