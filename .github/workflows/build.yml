@@ -22,7 +22,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.0
         with:
           path: target/UltraStaffChat-*.jar
           retention-days: 7
