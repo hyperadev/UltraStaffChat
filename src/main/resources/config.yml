@@ -352,7 +352,7 @@ stafflist-offline: "&cNo staff members are online."
 # [ UltraStaffChat | Update Notification Configuration ]
 
 # Update Notification | Enabled
-update-enabed: true
+update-enabled: true
 
 # Update Notification | Message
 #  - Placeholders: New Version - {version}, Current Version - {current}
