@@ -31,15 +31,15 @@ import org.jetbrains.annotations.ApiStatus;
 public class StaffJoinEvent extends PostLoginEvent implements Cancellable {
 
 	private boolean cancelled = false;
-	private Server server;
+	private final Server server;
 
 	@Deprecated
 	public StaffJoinEvent(ProxiedPlayer player) {
-		super(player);
+		this(player, player.getServer());
 	}
 
 	public StaffJoinEvent(ProxiedPlayer player, Server server) {
-		this(player);
+		super(player);
 		this.server = server;
 	}
 
