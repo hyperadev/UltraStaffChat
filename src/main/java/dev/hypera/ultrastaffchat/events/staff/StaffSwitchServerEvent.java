@@ -18,6 +18,7 @@
 
 package dev.hypera.ultrastaffchat.events.staff;
 
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
@@ -28,23 +29,19 @@ import org.jetbrains.annotations.ApiStatus;
 public class StaffSwitchServerEvent extends Event implements Cancellable {
 
 	private final ProxiedPlayer player;
-	private final String from;
-	private final String to;
-	private ServerInfo fromServer;
-	private Server toServer;
+	private final ServerInfo from;
+	private final Server to;
 	private boolean cancelled = false;
 
 	@Deprecated
 	public StaffSwitchServerEvent(ProxiedPlayer player, String from, String to) {
-		this.player = player;
-		this.from = from;
-		this.to = to;
+		this(player, ProxyServer.getInstance().getServerInfo(from), player.getServer());
 	}
 
 	public StaffSwitchServerEvent(ProxiedPlayer player, ServerInfo from, Server to) {
-		this(player, from.getName(), to.getInfo().getName());
-		this.fromServer = from;
-		this.toServer = to;
+		this.player = player;
+		this.from = from;
+		this.to = to;
 	}
 
 	public ProxiedPlayer getPlayer() {
@@ -53,22 +50,22 @@ public class StaffSwitchServerEvent extends Event implements Cancellable {
 
 	@Deprecated
 	public String getFrom() {
-		return from;
+		return from.getName();
 	}
 
 	@Deprecated
 	public String getTo() {
-		return to;
+		return to.getInfo().getName();
 	}
 
 	@ApiStatus.Experimental
 	public ServerInfo getFromServer() {
-		return fromServer;
+		return from;
 	}
 
 	@ApiStatus.Experimental
 	public Server getToServer() {
-		return toServer;
+		return to;
 	}
 
 	@Override
