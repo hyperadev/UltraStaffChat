@@ -13,7 +13,7 @@ jobs:
           distribution: 'zulu'
           java-version: 8
       - name: Cache Maven Dependencies
-        uses: actions/cache@v3.3.0
+        uses: actions/cache@v3.3.1
         with:
           path: ~/.m2
           key: ubuntu-latest-m2-${{ hashFiles('**/pom.xml') }}
