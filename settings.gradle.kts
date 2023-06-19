@@ -16,32 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package dev.hypera.ultrastaffchat.events.staff;
-
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.PlayerDisconnectEvent;
-import net.md_5.bungee.api.plugin.Cancellable;
-
-/**
- * Called when a player with the permission `staffchat.leave` leaves the proxy. When cancelled, the staff leave message
- * is not shown.
- */
-public class StaffLeaveEvent extends PlayerDisconnectEvent implements Cancellable {
-
-	private boolean cancelled = false;
-
-	public StaffLeaveEvent(ProxiedPlayer player) {
-		super(player);
-	}
-
-	@Override
-	public boolean isCancelled() {
-		return cancelled;
-	}
-
-	@Override
-	public void setCancelled(boolean cancel) {
-		this.cancelled = cancel;
-	}
-
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        gradlePluginPortal()
+    }
 }
+
+rootProject.name = "ultrastaffchat"

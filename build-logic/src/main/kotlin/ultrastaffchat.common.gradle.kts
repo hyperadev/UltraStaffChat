@@ -16,32 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package dev.hypera.ultrastaffchat.events.staff;
+import net.ltgt.gradle.errorprone.errorprone
 
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.PlayerDisconnectEvent;
-import net.md_5.bungee.api.plugin.Cancellable;
+plugins {
+    id("ultrastaffchat.publishing")
+    id("net.kyori.indra")
+    id("net.kyori.indra.git")
+    id("net.kyori.blossom")
+    id("net.ltgt.errorprone")
+}
 
-/**
- * Called when a player with the permission `staffchat.leave` leaves the proxy. When cancelled, the staff leave message
- * is not shown.
- */
-public class StaffLeaveEvent extends PlayerDisconnectEvent implements Cancellable {
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-	private boolean cancelled = false;
+indra {
+    javaVersions {
+        target(8)
+        testWith(8, 11, 17)
+    }
+}
 
-	public StaffLeaveEvent(ProxiedPlayer player) {
-		super(player);
-	}
+blossom {
+    replaceToken("@version@", rootProject.version)
+}
 
-	@Override
-	public boolean isCancelled() {
-		return cancelled;
-	}
+dependencies {
+    errorprone(libs.findLibrary("build-errorprone-core").get())
+    compileOnly(libs.findLibrary("build-errorprone-annotations").get())
+}
 
-	@Override
-	public void setCancelled(boolean cancel) {
-		this.cancelled = cancel;
-	}
+tasks.withType<JavaCompile>().configureEach {
+    options.errorprone {
 
+    }
 }
