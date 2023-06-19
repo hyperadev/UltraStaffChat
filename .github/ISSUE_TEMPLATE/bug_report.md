@@ -20,9 +20,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment**
- - OS: [e.g. Ubuntu 20.04]
- - Proxy Version: [e.g. BungeeCord 1.17]
- - UltraStaffChat Version: [e.g. 5.1.1]
+ - OS: [e.g. Ubuntu 22.04]
+ - Proxy Version: [e.g. BungeeCord 1.20]
+ - UltraStaffChat Version: [e.g. 5.2.0]
 
 **Advanced Debug Log**
 Please provide an advanced debug log, you can get this using the command `/usc debug --a`
