@@ -83,6 +83,8 @@ tasks {
         relocate("dev.hypera.updatelib")
         relocate("net.kyori")
         relocate("org.bstats")
+        relocate("com.vdurmont.semver4j")
+        relocate("org.json")
     }
     build {
         dependsOn(shadowJar)
