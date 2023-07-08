@@ -22,7 +22,6 @@ plugins {
     id("ultrastaffchat.publishing")
     id("net.kyori.indra")
     id("net.kyori.indra.git")
-    id("net.kyori.blossom")
     id("net.ltgt.errorprone")
 }
 
@@ -35,8 +34,10 @@ indra {
     }
 }
 
-blossom {
-    replaceToken("@version@", rootProject.version)
+tasks.processResources {
+    filter {
+        it.replace("@version@", rootProject.version as String)
+    }
 }
 
 dependencies {

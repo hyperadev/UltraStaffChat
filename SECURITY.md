@@ -10,8 +10,8 @@ address security vulnerabilities that affect the most recent version of this plu
 
 | Version   | Supported          |
 |-----------|--------------------|
-| `5.2.0`   | :white_check_mark: |
-| < `5.2.0` | :x:                |
+| `5.2.x`   | :white_check_mark: |
+| < `5.2.x` | :x:                |
 
 ### Reporting a Vulnerability
 

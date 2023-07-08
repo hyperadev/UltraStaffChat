@@ -27,7 +27,6 @@ repositories {
 dependencies {
     implementation(libs.build.indra.common)
     implementation(libs.build.indra.publishing)
-    implementation(libs.build.blossom)
     implementation(libs.build.errorprone.plugin)
 }
 
