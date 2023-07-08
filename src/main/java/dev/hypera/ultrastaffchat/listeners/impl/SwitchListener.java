@@ -1,6 +1,7 @@
 /*
- * UltraStaffChat BungeeCord - A 100% Customizable StaffChat Plugin for BungeeCord!
- * Copyright (C) 2021 Joshua Sing <joshua@hypera.dev>, SLLCoding <luisjk266@gmail.com>
+ * This file is a part of UltraStaffChat (https://github.com/HyperaDev/UltraStaffChat).
+ *
+ * Copyright (C) 2021-2023 The UltraStaffChat Authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package dev.hypera.ultrastaffchat.listeners.impl;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
@@ -29,13 +29,8 @@ public class SwitchListener extends Listener {
 
 	@EventHandler
 	public void onServerSwitch(ServerSwitchEvent event) {
-		if(Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) {
-			try {
-				StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom().getName(), event.getPlayer().getServer().getInfo().getName());
-			} catch (Exception e) {
-				// Ignore exception, its just a null pointer because the user joined not switched
-			}
-		}
+		if (event.getFrom() != null && Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-switch"))) StaffChatManager.broadcastSwitch(event.getPlayer(), event.getFrom(), event.getPlayer().getServer());
+		else if (event.getFrom() == null && Common.hasPermission(event.getPlayer(), UltraStaffChat.getConfig().getString("permission-join"))) StaffChatManager.broadcastJoin(event.getPlayer(), event.getPlayer().getServer());
 	}
 
 }

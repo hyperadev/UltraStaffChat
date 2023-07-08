@@ -21,18 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package dev.hypera.ultrastaffchat.utils;
-
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.plugin.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.md_5.bungee.api.ChatColor;
 
-public class MD_ implements Listener {
+public final class MD_ {
 
     public static String parseMarkdown(String message) {
         String translated = message;

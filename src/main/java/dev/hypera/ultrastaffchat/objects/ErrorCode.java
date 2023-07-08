@@ -1,6 +1,7 @@
 /*
- * UltraStaffChat BungeeCord - A 100% Customizable StaffChat Plugin for BungeeCord!
- * Copyright (C) 2021 Joshua Sing <joshua@hypera.dev>
+ * This file is a part of UltraStaffChat (https://github.com/HyperaDev/UltraStaffChat).
+ *
+ * Copyright (C) 2021-2023 The UltraStaffChat Authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package dev.hypera.ultrastaffchat.objects;
 
 public enum ErrorCode {
 
 	UNKNOWN("UNKNOWN", 1, "An unexpected error occurred."),
-	REGISTER_FAILED_LISTENER("REGISTER_LISTENER", 2, "An error occurred while trying to register a listener."),
-	REGISTER_FAILED_COMMAND("REGISTER_COMMAND", 3, "An error occurred while trying to register a command."),
 	CONFIG_GENERATE_FAILED("CONFIG_GENERATE", 4, "An error occurred while trying to generate a configuration file."),
 	CONFIG_LOAD_FAILED("CONFIG_LOAD", 5, "An error occurred while trying to load a configuration file. This may be caused by the YAML being invalid."),
 	OUTDATED_CONFIG("CONFIG_OUTDATED", 6, "The configuration file is too old for UltraStaffChat to read.");

@@ -4,28 +4,36 @@
 #  / /_/ / / /_/ /  / /_/ /___/ / /_/ /_/ / __/ __/ /___/ / / / /_/ / /_
 #  \____/_/\__/_/   \__,_//____/\__/\__,_/_/ /_/  \____/_/ /_/\__,_/\__/
 #
-#   UltraStaffChat - config.yml - Main Configuration.
-#   Copyright (C) 2021 Joshua Sing <joshua@hypera.dev>, Christian F <christianfdev@gmail.com>, SLLCoding <luisjk266@gmail.com>
+#  UltraStaffChat v@version@  -  Main configuration file (config.yml)
+#  Copyright (C) 2021-2023 The UltraStaffChat Authors (https://github.com/HyperaDev/UltraStaffChat/blob/main/AUTHORS)
 #
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
 #
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
 #
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-#   Helpful Links:
-#    Support          |   https://discord.hypera.dev
-#    Documentation    |   https://docs.hypera.dev/docs/ultrastaffchat-bungeecord
-#    Source Code      |   https://github.com/HyperaOfficial/UltraStaffChat
-
-
+#  Helpful Links:
+#   Wiki         |   https://wiki.hypera.dev/ultrastaffchat/
+#   Support      |   https://support.hypera.dev/
+#   Source Code  |   https://github.com/HyperaDev/UltraStaffChat
+#
+#  Thank you for using UltraStaffChat!
+#  If you have any questions or problems, please contact us:
+#    https://support.hypera.dev/
+#
+#  If you wish to support our work, and receive even more features at the same time,
+#  please consider taking the time to look at UltraStaffChatPro:
+#    https://www.spigotmc.org/resources/80461/
+#    - Joshua Sing (@joshuasing)
+#
 
 # [ UltraStaffChat | General Configuration ]
 
@@ -352,7 +360,7 @@ stafflist-offline: "&cNo staff members are online."
 # [ UltraStaffChat | Update Notification Configuration ]
 
 # Update Notification | Enabled
-update-enabed: true
+update-enabled: true
 
 # Update Notification | Message
 #  - Placeholders: New Version - {version}, Current Version - {current}
@@ -417,3 +425,6 @@ permission-debug: "ultrastaffchat.debug"
 # System | Configuration Version
 #  Used for Internal purposes - Don't edit!
 version: 37
+
+# - You're done!
+# Thanks for using UltraStaffChat BungeeCord!

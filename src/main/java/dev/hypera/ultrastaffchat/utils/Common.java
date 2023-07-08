@@ -1,6 +1,7 @@
 /*
- * UltraStaffChat BungeeCord - A 100% Customizable StaffChat Plugin for BungeeCord!
- * Copyright (C) 2021 Joshua Sing <joshua@hypera.dev>, Christian F <christianfdev@gmail.com>, SLLCoding <luisjk266@gmail.com>
+ * This file is a part of UltraStaffChat (https://github.com/HyperaDev/UltraStaffChat).
+ *
+ * Copyright (C) 2021-2023 The UltraStaffChat Authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package dev.hypera.ultrastaffchat.utils;
 
 import dev.hypera.ultrastaffchat.UltraStaffChat;
@@ -43,7 +43,7 @@ public class Common {
 	private static final int bStatsId = 5040;
 	private static final long resourceId = 68956;
 	private static final int configVersion = 37;
-	private static final String[] contributors = new String[] { "Joshua Sing", "Christian F", "SLLCoding" };
+	private static final String[] contributors = new String[] { "Joshua Sing", "LooFifteen", "Christian F" };
 
 	/**
 	 * Logs messages to console.
