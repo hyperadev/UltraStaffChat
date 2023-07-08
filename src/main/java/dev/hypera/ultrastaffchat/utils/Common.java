@@ -43,7 +43,7 @@ public class Common {
 	private static final int bStatsId = 5040;
 	private static final long resourceId = 68956;
 	private static final int configVersion = 37;
-	private static final String[] contributors = new String[] { "Joshua Sing", "Christian F", "SLLCoding" };
+	private static final String[] contributors = new String[] { "Joshua Sing", "LooFifteen", "Christian F" };
 
 	/**
 	 * Logs messages to console.

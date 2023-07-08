@@ -1,5 +1,5 @@
 name: "UltraStaffChat"
 version: "@version@"
-author: "Joshua Sing, SLLCoding, Christian F"
+author: "Joshua Sing, LooFifteen, Christian F"
 main: "dev.hypera.ultrastaffchat.UltraStaffChat"
 description: "A fully customisable staff communication plugin for BungeeCord!"
