@@ -53,7 +53,7 @@ body:
       value: |
         Operating System: <!-- e.g. Windows 11 or Ubuntu 22.04 -->
         Platform: <!-- e.g. BungeeCord 1.20 -->
-        UltraStaffChat Version: <!-- e.g. 5.2.0 -->
+        UltraStaffChat Version: <!-- e.g. 5.2.1 -->
       render: Markdown
     validations:
       required: true
