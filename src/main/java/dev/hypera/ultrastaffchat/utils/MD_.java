@@ -28,10 +28,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 public final class MD_ {
 
-    public static String parseMarkdown(String message) {
+    public static @NotNull String parseMarkdown(@NotNull String message) {
         String translated = message;
 
         translated = replaceWith(translated, "(?<!\\\\)\\*\\*", ChatColor.COLOR_CHAR + "z", ChatColor.COLOR_CHAR + "Z");

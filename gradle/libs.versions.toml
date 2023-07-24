@@ -11,6 +11,7 @@ platform-bungeecord = "1.20-R0.1-SNAPSHOT"
 
 # Dependencies
 updatelib = "4.0.0"
+discord-webhooks = "0.8.2"
 bstats = "3.0.2"
 
 # Code safety
@@ -32,6 +33,7 @@ platform-bungeecord = { module = "net.md-5:bungeecord-api", version.ref = "platf
 
 # Dependencies
 updatelib = { module = "dev.hypera:UpdateLib", version.ref = "updatelib" }
+discord-webhooks = { module = "club.minnced:discord-webhooks", version.ref = "discord-webhooks" }
 bstats-bungeecord = { module = "org.bstats:bstats-bungeecord", version.ref = "bstats" }
 
 # Code safety

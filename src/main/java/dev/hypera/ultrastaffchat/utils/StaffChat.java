@@ -23,10 +23,10 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class StaffChat {
+public final class StaffChat {
 
-	private static HashMap<UUID, Boolean> mutedPlayers = new HashMap<>();
-	private static HashMap<UUID, Boolean> toggledPlayers = new HashMap<>();
+	private static final HashMap<UUID, Boolean> mutedPlayers = new HashMap<>();
+	private static final HashMap<UUID, Boolean> toggledPlayers = new HashMap<>();
 	private static boolean staffChatMuted = false;
 
 	public static void disableMessages(ProxiedPlayer p) {

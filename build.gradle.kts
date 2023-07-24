@@ -40,9 +40,10 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.updatelib)
     implementation(libs.adventure.api)
     implementation(libs.adventure.platform.bungeecord)
+    implementation(libs.updatelib)
+    implementation(libs.discord.webhooks)
     implementation(libs.bstats.bungeecord)
     compileOnly(libs.platform.bungeecord)
     compileOnly(libs.annotations)

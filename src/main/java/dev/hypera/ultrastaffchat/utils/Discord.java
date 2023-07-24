@@ -18,305 +18,263 @@
  */
 package dev.hypera.ultrastaffchat.utils;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedAuthor;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedField;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedFooter;
+import club.minnced.discord.webhook.send.WebhookEmbed.EmbedTitle;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
+import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import dev.hypera.ultrastaffchat.UltraStaffChat;
-import dev.hypera.ultrastaffchat.utils.DiscordWebhook.EmbedObject;
+import java.awt.Color;
+import java.util.function.Function;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.config.Configuration;
+import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.io.IOException;
+public final class Discord {
 
-public class Discord {
+    private static final @NotNull String FOOTER_TEXT = "UltraStaffChat v" + UltraStaffChat.getInstance().getDescription().getVersion();
+    private static final @NotNull String FOOTER_ICON_URL = "https://assets.hypera.dev/ultrastaffchat-icon.png";
+    private static boolean enabled = false;
+    private static WebhookClient webhook;
 
-	private static final String footer = "UltraStaffChat - BungeeCord v" + UltraStaffChat.getInstance().getDescription().getVersion();
-	private static final String footerUrl = "https://i.hypera.dev/assets/hypera-icon-white.png";
-	private static boolean enabled = false;
-	private static String hookURL = "";
+    public static void setup() {
+        Configuration config = UltraStaffChat.getConfig().getConfiguration();
+        if (!config.getBoolean("discord-enabled")) {
+            return;
+        }
+        if (config.getString("discord-webhook") == null
+            || config.getString("discord-webhook").contains("XXXXXXXXXXXXXXXXXX")) {
+            Common.logPrefix(
+                "&cError: Discord messages are enabled but the webhook URL has not been configured!");
+            return;
+        }
 
-	public static void setup() {
-		Configuration config = UltraStaffChat.getConfig().getConfiguration();
-		if(!config.getBoolean("discord-enabled"))
-			return;
-		if(config.getString("discord-webhook") == null || config.getString("discord-webhook").contains("XXXXXXXXXXXXXXXXXX")) {
-			Common.logPrefix("&cError: Discord messages are enabled but the webhook URL has not been configured!");
-			return;
-		}
+        if (config.getSection("discord-format.embed.fields").getKeys().size() > 25
+            || config.getSection("discord-join-format.embed.fields").getKeys().size() > 25
+            || config.getSection("discord-leave-format.embed.fields").getKeys().size() > 25
+            || config.getSection("discord-switch-format.embed.fields").getKeys().size() > 25
+            || config.getSection("discord-afk-enable-format.embed.fields").getKeys().size() > 25
+            || config.getSection("discord-afk-disable-format.embed.fields").getKeys().size() > 25) {
+            Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
+            return;
+        }
 
-		if (config.getSection("discord-format.embed.fields").getKeys().size() > 25
-			|| config.getSection("discord-join-format.embed.fields").getKeys().size() > 25
-			|| config.getSection("discord-leave-format.embed.fields").getKeys().size() > 25
-			|| config.getSection("discord-switch-format.embed.fields").getKeys().size() > 25
-			|| config.getSection("discord-afk-enable-format.embed.fields").getKeys().size() > 25
-			|| config.getSection("discord-afk-disable-format.embed.fields").getKeys().size() > 25) {
-			Common.logPrefix("&cError: You can have a max of 25 fields in an embed.");
-			return;
-		}
+        webhook = new WebhookClientBuilder(config.getString("discord-webhook")).build();
+        enabled = true;
+    }
 
-		hookURL = config.getString("discord-webhook");
-		enabled = true;
-	}
+    public static void reload() {
+        enabled = false;
+        setup();
+    }
 
-	public static void reload() {
-		enabled = false;
-		setup();
-	}
+    public static boolean isEnabled() {
+        return enabled;
+    }
 
-	public static boolean isEnabled() {
-		return enabled;
-	}
+    public static void broadcastDiscordJoin(ProxiedPlayer p) {
+        if (!isEnabled() || !UltraStaffChat.getConfig()
+            .getConfiguration()
+            .getBoolean("discord-join-messages")) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(join_leavePlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-join-format").getString("text"), p));
+                    return;
+                }
 
-	public static void broadcastDiscordJoin(ProxiedPlayer p) {
-		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-join-messages"))
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-join-format");
-					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
-					hook.execute();
-					return;
-				}
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-join-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, str -> join_leavePlaceholders(str, p)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-join-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(join_leavePlaceholders(embedFormat.getString("description"), p));
-				embed.setTitle(join_leavePlaceholders(embedFormat.getString("title"), p));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-join-format.embed.fields." + key);
-					embed.addField(join_leavePlaceholders(sec.getString("name"), p), join_leavePlaceholders(sec.getString("value"), p), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+    public static void broadcastDiscordLeave(ProxiedPlayer p) {
+        if (!isEnabled() || !UltraStaffChat.getConfig()
+            .getConfiguration()
+            .getBoolean("discord-leave-messages")) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(join_leavePlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-leave-format").getString("text"), p));
+                    return;
+                }
 
-	public static void broadcastDiscordLeave(ProxiedPlayer p) {
-		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-leave-messages"))
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-leave-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, str -> join_leavePlaceholders(str, p)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-leave-format");
-					hook.setContent(join_leavePlaceholders(textFormat.getString("text"), p));
-					hook.execute();
-					return;
-				}
+    public static void broadcastDiscordSwitch(ProxiedPlayer p, String from, String to) {
+        if (!isEnabled() || !UltraStaffChat.getConfig().getConfiguration()
+            .getBoolean("discord-switch-messages")) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(switchPlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-switch-format").getString("text"), p, from, to));
+                    return;
+                }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-leave-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(join_leavePlaceholders(embedFormat.getString("description"), p));
-				embed.setTitle(join_leavePlaceholders(embedFormat.getString("title"), p));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-leave-format.embed.fields." + key);
-					embed.addField(join_leavePlaceholders(sec.getString("name"), p), join_leavePlaceholders(sec.getString("value"), p), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-switch-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, str -> switchPlaceholders(str, p, from, to)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-	public static void broadcastDiscordSwitch(ProxiedPlayer p, String from, String to) {
-		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-switch-messages"))
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
+    public static void broadcastDiscordStaffChatMessage(CommandSender s, String message) {
+        if (!isEnabled()) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(messagePlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-format").getString("text"), s, message));
+                    return;
+                }
 
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-switch-format");
-					hook.setContent(switchPlaceholders(textFormat.getString("text"), p, from, to));
-					try {
-						hook.execute();
-					} catch (IOException e) {
-						Common.log(e.toString());
-					}
-					return;
-				}
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, str -> messagePlaceholders(str, s, message)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-switch-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(switchPlaceholders(embedFormat.getString("description"), p, from, to));
-				embed.setTitle(switchPlaceholders(embedFormat.getString("title"), p, from, to));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-switch-format.embed.fields." + key);
-					embed.addField(switchPlaceholders(sec.getString("name"), p, from, to), switchPlaceholders(sec.getString("value"), p, from, to), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+    public static void broadcastDiscordAFKEnable(ProxiedPlayer p) {
+        if (!isEnabled() || !UltraStaffChat.getConfig().getConfiguration()
+            .getBoolean("discord-afk-enable-messages")) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(afkPlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-afk-enable-format").getString("text"), p));
+                    return;
+                }
 
-	public static void broadcastDiscordStaffChatMessage(CommandSender s, String message) {
-		if(!isEnabled())
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-afk-enable-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, s -> afkPlaceholders(s, p)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-format");
-					hook.setContent(messagePlaceholders(textFormat.getString("text"), s, message));
-					try {
-						hook.execute();
-					} catch (IOException e) {
-						Common.log(e.toString());
-					}
-					return;
-				}
+    public static void broadcastDiscordAFKDisable(ProxiedPlayer p) {
+        if (!isEnabled() || !UltraStaffChat.getConfig().getConfiguration()
+            .getBoolean("discord-afk-disable-messages")) {
+            return;
+        }
+        ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
+            try {
+                if (!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
+                    sendTextMessage(afkPlaceholders(UltraStaffChat.getConfig().getConfiguration()
+                        .getSection("discord-afk-disable-format").getString("text"), p));
+                    return;
+                }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(messagePlaceholders(embedFormat.getString("description"), s, message));
-				embed.setTitle(messagePlaceholders(embedFormat.getString("title"), s, message));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-format.embed.fields." + key);
-					embed.addField(messagePlaceholders(sec.getString("name"), s, message), messagePlaceholders(sec.getString("value"), s, message), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+                Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration()
+                    .getSection("discord-afk-disable-format.embed");
+                sendEmbedMessage(createEmbed(embedFormat, s -> afkPlaceholders(s, p)));
+            } catch (Exception e) {
+                Common.log(e.toString());
+            }
+        });
+    }
 
-	public static void broadcastDiscordAFKEnable(ProxiedPlayer p) {
-		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-enable-messages"))
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
+    private static @NotNull WebhookEmbedBuilder createEmbed(@NotNull Configuration format, @NotNull Function<String, String> placeholder) {
+        WebhookEmbedBuilder builder = new WebhookEmbedBuilder()
+            .setColor(Color.decode(format.getString("color")).getRGB())
+            .setDescription(placeholder.apply(format.getString("description")))
+            .setTitle(new EmbedTitle(placeholder.apply(format.getString("title")), format.getString("url")))
+            .setThumbnailUrl(format.getString("thumbnail"))
+            .setImageUrl(format.getString("image"))
+            .setAuthor(new EmbedAuthor(
+                placeholder.apply(format.getString("author.name")),
+                format.getString("author.url"),
+                format.getString("image")
+            ));
+        for (String key : format.getSection("fields").getKeys()) {
+            Configuration sec = format.getSection("fields").getSection(key);
+            builder.addField(new EmbedField(
+                sec.getBoolean("inline"),
+                placeholder.apply(sec.getString("name")),
+                placeholder.apply(sec.getString("value"))
+            ));
+        }
+        return builder;
+    }
 
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-enable-format");
-					hook.setContent(afkPlaceholders(textFormat.getString("text"), p));
-					hook.execute();
-					return;
-				}
+    private static void sendTextMessage(@NotNull String message) {
+        webhook.send(new WebhookMessageBuilder()
+            .setUsername(UltraStaffChat.getConfig().getString("discord-username"))
+            .setAvatarUrl(UltraStaffChat.getConfig().getString("discord-image"))
+            .setContent(message).build());
+    }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-enable-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(afkPlaceholders(embedFormat.getString("description"), p));
-				embed.setTitle(afkPlaceholders(embedFormat.getString("title"), p));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-enable-format.embed.fields." + key);
-					embed.addField(afkPlaceholders(sec.getString("name"), p), afkPlaceholders(sec.getString("value"), p), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+    private static void sendEmbedMessage(@NotNull WebhookEmbedBuilder embed) {
+        embed.setFooter(new EmbedFooter(FOOTER_TEXT, FOOTER_ICON_URL));
+        webhook.send(new WebhookMessageBuilder()
+            .setUsername(UltraStaffChat.getConfig().getString("discord-username"))
+            .setAvatarUrl(UltraStaffChat.getConfig().getString("discord-image"))
+            .addEmbeds(embed.build()).build());
+    }
 
-	public static void broadcastDiscordAFKDisable(ProxiedPlayer p) {
-		if(!isEnabled() || !UltraStaffChat.getConfig().getConfiguration().getBoolean("discord-afk-disable-messages"))
-			return;
-		ProxyServer.getInstance().getScheduler().runAsync(UltraStaffChat.getInstance(), () -> {
-			try {
-				DiscordWebhook hook = getHook();
+    private static String messagePlaceholders(String string, CommandSender s, String m) {
+        return escape(string.replaceAll("\\{message}", stripColor(m))
+            .replaceAll("\\{player}", Common.getDisplayNameSafe(s))
+            .replaceAll("\\{server}", Common.getServerSafe(s)));
+    }
 
-				if(!UltraStaffChat.getConfig().getBoolean("discord-embed")) {
-					Configuration textFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-disable-format");
-					hook.setContent(afkPlaceholders(textFormat.getString("text"), p));
-					hook.execute();
-					return;
-				}
+    private static String join_leavePlaceholders(String string, ProxiedPlayer p) {
+        return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p))
+            .replaceAll("\\{server}", Common.getServerSafe(p)));
+    }
 
-				EmbedObject embed = createEmbed();
-				Configuration embedFormat = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-disable-format.embed");
-				embed.setColor(Color.decode(embedFormat.getString("color")));
-				embed.setDescription(afkPlaceholders(embedFormat.getString("description"), p));
-				embed.setTitle(afkPlaceholders(embedFormat.getString("title"), p));
-				embed.setThumbnail(embedFormat.getString("thumbnail"));
-				embed.setImage(embedFormat.getString("image"));
-				embed.setAuthor(embedFormat.getString("author.name"), embedFormat.getString("author.url"), embedFormat.getString("image"));
-				embed.setUrl(embedFormat.getString("url"));
-				for(String key : embedFormat.getSection("fields").getKeys()) {
-					Configuration sec = UltraStaffChat.getConfig().getConfiguration().getSection("discord-afk-disable-format.embed.fields." + key);
-					embed.addField(afkPlaceholders(sec.getString("name"), p), afkPlaceholders(sec.getString("value"), p), sec.getBoolean("inline"));
-				}
-				hook.addEmbed(embed);
-				hook.execute();
-			} catch (Exception e) {
-				Common.log(e.toString());
-			}
-		});
-	}
+    private static String switchPlaceholders(String string, ProxiedPlayer p, String from, String to) {
+        return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p))
+            .replaceAll("\\{to}", to)
+            .replaceAll("\\{from}", from));
+    }
 
-	private static String messagePlaceholders(String string, CommandSender s, String m) {
-		return escape(string.replaceAll("\\{message}", stripColor(m)).replaceAll("\\{player}", Common.getDisplayNameSafe(s)).replaceAll("\\{server}", Common.getServerSafe(s)));
-	}
+    private static String afkPlaceholders(String string, ProxiedPlayer p) {
+        return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)));
+    }
 
-	private static String join_leavePlaceholders(String string, ProxiedPlayer p) {
-		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{server}", Common.getServerSafe(p)));
-	}
+    private static String escape(String input) {
+        return input.replaceAll("\"", "\\\\\"");
+    }
 
-	private static String switchPlaceholders(String string, ProxiedPlayer p, String from, String to) {
-		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)).replaceAll("\\{to}", to).replaceAll("\\{from}", from));
-	}
-
-	private static String afkPlaceholders(String string, ProxiedPlayer p) {
-		return escape(string.replaceAll("\\{player}", Common.getDisplayNameSafe(p)));
-	}
-
-	private static DiscordWebhook getHook() {
-		DiscordWebhook hook = new DiscordWebhook(hookURL);
-		hook.setAvatarUrl(UltraStaffChat.getConfig().getString("discord-image"));
-		hook.setUsername(UltraStaffChat.getConfig().getString("discord-username"));
-		return hook;
-	}
-
-	private static DiscordWebhook.EmbedObject createEmbed() {
-		return new DiscordWebhook.EmbedObject().setFooter(footer, footerUrl);
-	}
-
-	private static String escape(String input) {
-		return input.replaceAll("\"", "\\\\\"");
-	}
-
-	private static String stripColor(String input) {
-		return input.replaceAll("(?i)[§&][0-9A-FK-ORX]", "");
-	}
+    private static String stripColor(String input) {
+        return input.replaceAll("(?i)[§&][0-9A-FK-ORX]", "");
+    }
 
 }
