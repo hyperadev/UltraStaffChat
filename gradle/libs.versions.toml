@@ -14,7 +14,7 @@ updatelib = "4.0.0"
 bstats = "3.0.2"
 
 # Code safety
-annotations = "24.0.1"
+annotations = "24.1.0"
 
 # Build
 build-indra = "3.1.2"
