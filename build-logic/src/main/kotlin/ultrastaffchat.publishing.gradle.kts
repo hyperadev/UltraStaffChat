@@ -26,6 +26,7 @@ indra {
         ci(true)
     }
 
+    signWithKeyFromPrefixedProperties("hypera")
     publishReleasesTo("hyperaReleases", "https://repo.hypera.dev/releases")
     publishSnapshotsTo("hyperaSnapshots", "https://repo.hypera.dev/snapshots")
 
