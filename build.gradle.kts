@@ -16,15 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-@Suppress( // https://youtrack.jetbrains.com/issue/KTIJ-19369/
-    "DSL_SCOPE_VIOLATION",
-    "MISSING_DEPENDENCY_CLASS",
-    "UNRESOLVED_REFERENCE_WRONG_RECEIVER",
-    "FUNCTION_CALL_EXPECTED"
-)
 plugins {
     id("ultrastaffchat.common")
-    alias(libs.plugins.indra.sonatype)
     alias(libs.plugins.shadow)
     java
 }
@@ -46,10 +39,6 @@ dependencies {
     implementation(libs.bstats.bungeecord)
     compileOnly(libs.platform.bungeecord)
     compileOnly(libs.annotations)
-}
-
-indraSonatype {
-    useAlternateSonatypeOSSHost("s01")
 }
 
 java {
