@@ -20,27 +20,33 @@ package dev.hypera.ultrastaffchat.events.staff;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
-import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Cancellable;
+import net.md_5.bungee.api.plugin.Event;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Called when a player with the permission `staffchat.join` joins the proxy. When cancelled, the staff join message is
  * not shown.
  */
-public class StaffJoinEvent extends PostLoginEvent implements Cancellable {
+public class StaffJoinEvent extends Event implements Cancellable {
 
 	private boolean cancelled = false;
+	private final ProxiedPlayer player;
 	private final Server server;
 
 	@Deprecated
-	public StaffJoinEvent(ProxiedPlayer player) {
+	public StaffJoinEvent(@NotNull ProxiedPlayer player) {
 		this(player, player.getServer());
 	}
 
-	public StaffJoinEvent(ProxiedPlayer player, Server server) {
-		super(player);
+	public StaffJoinEvent(@NotNull ProxiedPlayer player, Server server) {
+		this.player = player;
 		this.server = server;
+	}
+
+	public @NotNull ProxiedPlayer getPlayer() {
+		return player;
 	}
 
 	@ApiStatus.Experimental
