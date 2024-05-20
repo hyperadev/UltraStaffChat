@@ -27,9 +27,10 @@ version = "5.2.2-SNAPSHOT"
 description = "A fully customisable staff communication plugin for BungeeCord!"
 
 repositories {
+    maven("https://repo.hypera.dev/mirror/") // Needed to resolve com.mojang:brigadier (mirrors libraries.minecraft.net).
+    maven("https://repo.hypera.dev/releases/")
     mavenCentral()
     sonatype.ossSnapshots()
-    maven("https://repo.hypera.dev/releases/")
 }
 
 dependencies {
