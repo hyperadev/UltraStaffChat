@@ -32,7 +32,7 @@ indra {
 
     configurePublications {
         pom {
-            inceptionYear.set("2021")
+            inceptionYear.set("2019")
 
             organization {
                 name.set("Hypera Development")
@@ -43,15 +43,15 @@ indra {
                 developer {
                     id.set("joshuasing")
                     name.set("Joshua Sing")
-                    timezone.set("Australia/Melbourne")
                     email.set("joshua@hypera.dev")
+                    timezone.set("Australia/Melbourne")
                 }
 
                 developer {
                     id.set("LooFifteen")
                     name.set("Luis")
+                    email.set("luis@lu15.dev")
                     timezone.set("Europe/London")
-                    email.set("luisjk266@gmail.com")
                 }
             }
         }

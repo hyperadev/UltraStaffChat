@@ -5,16 +5,21 @@ on:
   push:
     branches: [ "releases/**" ]
 
+concurrency:
+  group: "gradle-release-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   release:
     name: "Release"
     uses: HyperaDev/actions/.github/workflows/gradle-release.yml@main
+    with:
+      project_name: "UltraStaffChat"
+      release_files: |
+        build/libs/UltraStaffChat-*.jar
     secrets:
       HYPERA_SIGNING_KEY: "${{ secrets.GPG_PRIVATE_KEY }}"
       HYPERA_SIGNING_PASSWORD: "${{ secrets.GPG_PASSPHRASE }}"
       HYPERA_RELEASES_USERNAME: "${{ secrets.HYPERA_RELEASES_USERNAME }}"
       HYPERA_RELEASES_PASSWORD: "${{ secrets.HYPERA_RELEASES_PASSWORD }}"
-    with:
-      project_name: "UltraStaffChat"
-      release_files: |
-        build/libs/UltraStaffChat-*.jar
+      GITHUB_RELEASE_TOKEN: "${{ secrets.HYPERA_BOT_TOKEN }}"

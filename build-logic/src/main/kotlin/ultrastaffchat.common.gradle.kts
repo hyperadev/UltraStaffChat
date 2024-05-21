@@ -19,9 +19,9 @@
 import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
-    id("ultrastaffchat.publishing")
     id("net.kyori.indra")
     id("net.kyori.indra.git")
+    id("ultrastaffchat.publishing")
     id("net.ltgt.errorprone")
 }
 
@@ -30,7 +30,7 @@ val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 indra {
     javaVersions {
         target(8)
-        testWith(8, 11, 17)
+        testWith(8, 11, 17, 21)
     }
 }
 
