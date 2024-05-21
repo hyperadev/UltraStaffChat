@@ -23,7 +23,7 @@ plugins {
 }
 
 group = "dev.hypera"
-version = "5.2.2-SNAPSHOT"
+version = "5.2.2"
 description = "A fully customisable staff communication plugin for BungeeCord!"
 
 repositories {
